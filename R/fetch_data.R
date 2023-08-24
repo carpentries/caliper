@@ -24,5 +24,4 @@ fetch_redash <- function(query_id) {
 # return(data)
 
 # }
-#
-#
+
