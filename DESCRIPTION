@@ -11,9 +11,11 @@ Imports:
   googlesheets4,
   stringr, 
   ggplot2,
-  airtabler
+  airtabler,
+  paintbrush
 Remotes:
   bergant/airtabler
+  klbarnes20/paintbrush
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
