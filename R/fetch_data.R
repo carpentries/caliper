@@ -11,7 +11,7 @@
 #' fetch_redash(17)
 #'
 fetch_redash <- function(query_id) {
-  api_key <- Sys.getenv(paste0("REDASH_QUERY_", query_id))
+  api_key <- get_env_var(paste0("REDASH_QUERY_", query_id))
   url <-
     paste0(
       "https://redash.carpentries.org/api/queries/",
