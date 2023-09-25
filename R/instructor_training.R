@@ -272,3 +272,69 @@ calculate_checkout_rate <- function(trainee_data, days_threshold = 90) {
   return(checkout_rate)
 }
 
+#' Title
+#'
+#' @param trainee_progress
+#' @param days_threshold
+#'
+#' @return
+#' @export
+#'
+#' @examples
+calculate_checkout_started <- function(trainee_progress, days_threshold = 90) {
+  n_started_checkout <- trainee_progress %>%
+    mutate(
+      training = as.Date(training),
+      instr_badge = as.Date(instr_badge),
+      days_to_badge = instr_badge - training,
+      days_from_training = Sys.Date() - training
+    ) %>%
+    filter(days_from_training >= days_threshold & (get_involved != "" | teaching_demo != ""
+                                                   | welcome != "")) %>%
+    nrow()
+
+  return(n_started_checkout)
+}
+
+# Calculate checkout not finished
+#' Title
+#'
+#' @param trainee_progress
+#' @param days_threshold
+#'
+#' @return
+#' @export
+#'
+#' @examples
+calculate_checkout_not_finished <- function(trainee_progress, days_threshold = 90) {
+  n_not_finished_checkout <- trainee_progress %>%
+    mutate(
+      training = as.Date(training),
+      instr_badge = as.Date(instr_badge),
+      days_from_training = Sys.Date() - training
+    ) %>%
+    filter(days_from_training >= days_threshold &
+             (get_involved != "" | teaching_demo != ""| welcome != "")
+           & is.na(instr_badge)) %>%
+    nrow()
+
+  return(n_not_finished_checkout)
+
+}
+
+#' Instructor Checkout Dropout Rate
+#'
+#' @param trainee_progress
+#' @param days_threshold
+#'
+#' @return percentage
+#' @export
+#'
+#' @examples
+calculate_dropout_rate <- function(trainee_progress, days_threshold = 90) {
+  n_started <- calculate_checkout_started(trainee_progress)
+  n_not_finished <- calculate_checkout_not_finished(trainee_progress)
+  dropout_rate <- calculate_rate(n_not_finished, n_started)
+
+  return(dropout_rate)
+}
