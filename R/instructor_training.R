@@ -338,3 +338,33 @@ calculate_dropout_rate <- function(trainee_progress, days_threshold = 90) {
 
   return(dropout_rate)
 }
+
+calculate_avg_time_to_checkout <- function(trainee_progress, days_threshold = 90) {
+  trainee_progress <- trainee_progress %>%
+    mutate(instr_badge = as.Date(instr_badge),
+           training = as.Date(training),
+           days_to_badge = instr_badge - training,
+           days_from_training = Sys.Date() - training) %>%
+    filter(days_from_training >= days_threshold)
+
+  avg_time_to_checkout <- round(mean(trainee_progress$days_to_badge, na.rm = TRUE), 2)
+
+  return(avg_time_to_checkout)
+
+}
+
+calculate_wksurvey_item_mean <- function(data, item) {
+  data <- data %>% mutate_at(
+    c('instructors_clear_answers',
+      'instructors_enthusiastic',
+      'instructors_comfortable_interaction',
+      'instructors_knowledgeable',
+      'recommendation_score'), as.numeric) %>%
+    mutate(train_re_changes = as.factor(ifelse(
+      submitted_at < go_live_date, "before", "after"))) %>%
+    filter(!is.na(!!sym(item)) & !is.na(train_re_changes)) %>%
+    group_by(train_re_changes) %>%
+    summarise(Mean = round(mean(!!sym(item), na.rm = TRUE), 2))
+
+  return(data)
+}
