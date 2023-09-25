@@ -17,7 +17,7 @@ fetch_redash <- function(query_id) {
   return(data)
 }
 
-# fetch_airtable <- function(id, db_name) {
+fetch_airtable <- function(id, db_name) {
 
 # data <- airtabler::airtable(id, db_name)$`db_name`$select_all()
 
