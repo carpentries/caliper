@@ -205,4 +205,70 @@ process_data <- function(dat) {
   dat %>% summarise_data_by_tz()
 }
 
+#' Title
+#'
+#' @param trainee_data
+#' @param days_threshold
+#'
+#' @return
+#' @export
+#'
+#' @examples
+trainees_n_days <- function(trainee_data, days_threshold = 90) {
+  trainee_days <- trainee_data %>%
+    mutate(
+      training = as.Date(training),
+      instr_badge = as.Date(instr_badge),
+      days_from_training = Sys.Date() - training
+    ) %>%
+    filter(days_from_training >= days_threshold) %>%
+    nrow()
+
+  return(trainee_days)
+}
+
+
+#' Title
+#'
+#' @param trainee_data
+#' @param days_threshold
+#'
+#' @return
+#' @export
+#'
+#' @examples
+badged_n_days <- function(trainee_data, days_threshold = 90) {
+  badged_days <- trainee_data %>%
+    mutate(
+      training = as.Date(training),
+      instr_badge = as.Date(instr_badge),
+      days_to_badge = instr_badge - training,
+      days_from_training = Sys.Date() - training
+    ) %>%
+    filter(
+      !is.na(instr_badge),
+      days_to_badge <= days_threshold,
+      days_from_training >= days_threshold
+    ) %>%
+    nrow()
+
+  return(badged_days)
+}
+
+#' Calculate checkout rate
+#'
+#' @param trainee_data
+#' @param days_threshold
+#'
+#' @return percentage
+#' @export
+#'
+#' @examples
+calculate_checkout_rate <- function(trainee_data, days_threshold = 90) {
+  trainee_days <- trainees_n_days(trainee_data, days_threshold)
+  badged_days <- badged_n_days(trainee_data, days_threshold)
+  checkout_rate <- calculate_rate(badged_days, trainee_days)
+
+  return(checkout_rate)
+}
 
