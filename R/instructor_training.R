@@ -205,22 +205,4 @@ process_data <- function(dat) {
   dat %>% summarise_data_by_tz()
 }
 
-# Function to Generate Plot
-#' Generate Plots
-#'
-#' @param dat
-#' @param x
-#' @param y
-#' @param fill
-#'
-#' @return
-#' @export
-#'
-#' @examples
-generate_plot <- function(dat, x, y, fill = NULL) {
-  ggplot(dat, aes_string(x = x, y = y, fill = fill)) +
-    geom_col(position = position_dodge(width = 0.9)) +
-    geom_text(aes(label = after_stat(y)), stat = "identity", vjust = -0.3, position = position_dodge(width = 0.9)) +
-    facet_grid(year ~ quarter) +
-    theme_carpentries()
-}
+
