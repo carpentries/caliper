@@ -23,10 +23,14 @@ calculate_rate <- function(xsmaller, ylarger) {
 #' @export
 #'
 #' @examples
+#' trainee_progress <- fetch_redash(388)
+#' result <- set_time_frame(dat = trainee_progress, col = "training", start = "2021-01-01", end = "2021-12-31")
+#' head(result)
 set_time_frame <-  function(dat, col, start, end) {
+  col_sym <- sym(col)
   df <- dat %>%
-    filter(col > as.Date(start, "%Y-%m-%d") &
-             col < as.Date(end, "%Y-%m-%d"))
+    filter(!!col_sym > as.Date(start, "%Y-%m-%d") &
+             !!col_sym < as.Date(end, "%Y-%m-%d"))
 
   return(df)
 }

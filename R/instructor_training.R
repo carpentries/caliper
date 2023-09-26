@@ -1,6 +1,6 @@
 #' Rename and Group Trainer Availability Data
 #'
-#' @param dat
+#' @param dat a dataframe
 #'
 #' @return
 #' @export
@@ -14,7 +14,8 @@
 #' str(result)
 
 rename_and_group_availability <- function(dat) {
-  col_index <- which(startsWith(names(dat), "Are you available to teach"))
+  col_index <-
+    which(startsWith(names(dat), "Are you available to teach"))
   if (length(col_index) == 0) {
     stop("No matching column name found.")
   }
@@ -25,7 +26,7 @@ rename_and_group_availability <- function(dat) {
 
 #' Map Trainer Availability
 #'
-#' @param dat
+#' @param dat a dataframe
 #'
 #' @return data frame with availability column simplified
 #' @export
@@ -38,9 +39,11 @@ rename_and_group_availability <- function(dat) {
 #' result <- map_availability(sample_data)
 #' str(result)
 map_availability <- function(dat) {
-  maybe_vector <- c("Maybe, but I am not able to schedule firmly at this time.  (Be sure to click \"Submit\" on the next page.)",
-                    "Maybe, but I am not able to schedule firmly at this time."
-  )
+  maybe_vector <-
+    c(
+      "Maybe, but I am not able to schedule firmly at this time.  (Be sure to click \"Submit\" on the next page.)",
+      "Maybe, but I am not able to schedule firmly at this time."
+    )
   no_vector <- c(
     "No, I can NOT teach online events next quarter.",
     "No, I can NOT teach online events during that time.  (Be sure to click \"Submit\" on the next page.)"
@@ -53,18 +56,20 @@ map_availability <- function(dat) {
 
   dat <- dat %>%
     rename_and_group_availability() %>%
-    mutate(availability = case_when(
-      availability %in% maybe_vector ~ "maybe",
-      availability %in% no_vector ~ "no",
-      availability %in% yes_vector ~ "yes",
-      TRUE ~ availability
-    ))
+    mutate(
+      availability = case_when(
+        availability %in% maybe_vector ~ "maybe",
+        availability %in% no_vector ~ "no",
+        availability %in% yes_vector ~ "yes",
+        TRUE ~ availability
+      )
+    )
   return(dat)
 }
 
 #' Map Timezones
 #'
-#' @param dat
+#' @param dat a dataframe
 #'
 #' @return dataframe with timezones simplified
 #' @export
@@ -133,9 +138,10 @@ extract_year_quarter <- function(df) {
   df_name <- deparse(substitute(df))
 
   # Use a regular expression to extract the quarter and year
-  matches <- regmatches(df_name, regexec("^(q[1-4]|Q[1-4])_([0-9]{4})$", df_name))[[1]]
+  matches <-
+    regmatches(df_name, regexec("^(q[1-4]|Q[1-4])_([0-9]{4})$", df_name))[[1]]
 
-  if(length(matches) != 3) {
+  if (length(matches) != 3) {
     stop("Data frame name does not match the expected format.")
   }
 
@@ -168,7 +174,7 @@ summarise_data_by_qtr <- function(dat) {
 
 #' Summarise Trainer Availability Data by Timezone Group
 #'
-#' @param dat
+#' @param dat data frame
 #'
 #' @return
 #' @export
@@ -190,7 +196,7 @@ summarise_data_by_tz <- function(dat) {
 
 #' Process Trainer Availability Data
 #'
-#' @param dat
+#' @param dat data frame
 #'
 #' @return
 #' @export
@@ -205,7 +211,7 @@ process_data <- function(dat) {
   dat %>% summarise_data_by_tz()
 }
 
-#' Title
+#' Trainee Days
 #'
 #' @param trainee_data
 #' @param days_threshold
@@ -228,7 +234,7 @@ trainees_n_days <- function(trainee_data, days_threshold = 90) {
 }
 
 
-#' Title
+#' Badged Days
 #'
 #' @param trainee_data
 #' @param days_threshold
@@ -258,69 +264,79 @@ badged_n_days <- function(trainee_data, days_threshold = 90) {
 #' Calculate checkout rate
 #'
 #' @param trainee_data
-#' @param days_threshold
+#' @param days_threshold the number of days you would like to review, default = 90 days
 #'
 #' @return percentage
 #' @export
 #'
 #' @examples
-calculate_checkout_rate <- function(trainee_data, days_threshold = 90) {
-  trainee_days <- trainees_n_days(trainee_data, days_threshold)
-  badged_days <- badged_n_days(trainee_data, days_threshold)
-  checkout_rate <- calculate_rate(badged_days, trainee_days)
+calculate_checkout_rate <-
+  function(trainee_data, days_threshold = 90) {
+    trainee_days <- trainees_n_days(trainee_data, days_threshold)
+    badged_days <- badged_n_days(trainee_data, days_threshold)
+    checkout_rate <- calculate_rate(badged_days, trainee_days)
 
-  return(checkout_rate)
-}
+    return(checkout_rate)
+  }
 
-#' Title
+#' Calculate Checkout Started
 #'
 #' @param trainee_progress
 #' @param days_threshold
 #'
-#' @return
+#' @return number of people who have started checkout
 #' @export
 #'
 #' @examples
-calculate_checkout_started <- function(trainee_progress, days_threshold = 90) {
-  n_started_checkout <- trainee_progress %>%
-    mutate(
-      training = as.Date(training),
-      instr_badge = as.Date(instr_badge),
-      days_to_badge = instr_badge - training,
-      days_from_training = Sys.Date() - training
-    ) %>%
-    filter(days_from_training >= days_threshold & (get_involved != "" | teaching_demo != ""
-                                                   | welcome != "")) %>%
-    nrow()
+calculate_checkout_started <-
+  function(trainee_progress, days_threshold = 90) {
+    n_started_checkout <- trainee_progress %>%
+      mutate(
+        training = as.Date(training),
+        instr_badge = as.Date(instr_badge),
+        days_to_badge = instr_badge - training,
+        days_from_training = Sys.Date() - training
+      ) %>%
+      filter(
+        days_from_training >= days_threshold &
+          (get_involved != "" | teaching_demo != ""
+           |
+             welcome != "")
+      ) %>%
+      nrow()
 
-  return(n_started_checkout)
-}
+    return(n_started_checkout)
+  }
 
-# Calculate checkout not finished
-#' Title
+#
+#' Calculate checkout not finished
 #'
 #' @param trainee_progress
 #' @param days_threshold
 #'
-#' @return
+#' @return number of people who have started but not finished checkout
 #' @export
 #'
 #' @examples
-calculate_checkout_not_finished <- function(trainee_progress, days_threshold = 90) {
-  n_not_finished_checkout <- trainee_progress %>%
-    mutate(
-      training = as.Date(training),
-      instr_badge = as.Date(instr_badge),
-      days_from_training = Sys.Date() - training
-    ) %>%
-    filter(days_from_training >= days_threshold &
-             (get_involved != "" | teaching_demo != ""| welcome != "")
-           & is.na(instr_badge)) %>%
-    nrow()
+calculate_checkout_not_finished <-
+  function(trainee_progress, days_threshold = 90) {
+    n_not_finished_checkout <- trainee_progress %>%
+      mutate(
+        training = as.Date(training),
+        instr_badge = as.Date(instr_badge),
+        days_from_training = Sys.Date() - training
+      ) %>%
+      filter(
+        days_from_training >= days_threshold &
+          (get_involved != "" |
+             teaching_demo != "" | welcome != "")
+        & is.na(instr_badge)
+      ) %>%
+      nrow()
 
-  return(n_not_finished_checkout)
+    return(n_not_finished_checkout)
 
-}
+  }
 
 #' Instructor Checkout Dropout Rate
 #'
@@ -331,37 +347,66 @@ calculate_checkout_not_finished <- function(trainee_progress, days_threshold = 9
 #' @export
 #'
 #' @examples
-calculate_dropout_rate <- function(trainee_progress, days_threshold = 90) {
-  n_started <- calculate_checkout_started(trainee_progress)
-  n_not_finished <- calculate_checkout_not_finished(trainee_progress)
-  dropout_rate <- calculate_rate(n_not_finished, n_started)
+calculate_dropout_rate <-
+  function(trainee_progress, days_threshold = 90) {
+    n_started <- calculate_checkout_started(trainee_progress)
+    n_not_finished <-
+      calculate_checkout_not_finished(trainee_progress)
+    dropout_rate <- calculate_rate(n_not_finished, n_started)
 
-  return(dropout_rate)
-}
+    return(dropout_rate)
+  }
 
-calculate_avg_time_to_checkout <- function(trainee_progress, days_threshold = 90) {
-  trainee_progress <- trainee_progress %>%
-    mutate(instr_badge = as.Date(instr_badge),
-           training = as.Date(training),
-           days_to_badge = instr_badge - training,
-           days_from_training = Sys.Date() - training) %>%
-    filter(days_from_training >= days_threshold)
+#' Calculate average time to checkout
+#'
+#' @param trainee_progress data frame
+#' @param days_threshold number of days since training, default = 90
+#'
+#' @return average number of days
+#' @export
+#'
+#' @examples
+calculate_avg_time_to_checkout <-
+  function(trainee_progress, days_threshold = 90) {
+    trainee_progress <- trainee_progress %>%
+      mutate(
+        instr_badge = as.Date(instr_badge),
+        training = as.Date(training),
+        days_to_badge = instr_badge - training,
+        days_from_training = Sys.Date() - training
+      ) %>%
+      filter(days_from_training >= days_threshold)
 
-  avg_time_to_checkout <- round(mean(trainee_progress$days_to_badge, na.rm = TRUE), 2)
+    avg_time_to_checkout <-
+      round(mean(trainee_progress$days_to_badge, na.rm = TRUE), 2)
 
-  return(avg_time_to_checkout)
+    return(avg_time_to_checkout)
 
-}
+  }
 
+#' Calculate Workshop Survey Item Mean
+#'
+#' @param data dataframe
+#' @param item column name
+#'
+#' @return
+#' @export
+#'
+#' @examples
 calculate_wksurvey_item_mean <- function(data, item) {
   data <- data %>% mutate_at(
-    c('instructors_clear_answers',
+    c(
+      'instructors_clear_answers',
       'instructors_enthusiastic',
       'instructors_comfortable_interaction',
       'instructors_knowledgeable',
-      'recommendation_score'), as.numeric) %>%
+      'recommendation_score'
+    ),
+    as.numeric
+  ) %>%
     mutate(train_re_changes = as.factor(ifelse(
-      submitted_at < go_live_date, "before", "after"))) %>%
+      submitted_at < go_live_date, "before", "after"
+    ))) %>%
     filter(!is.na(!!sym(item)) & !is.na(train_re_changes)) %>%
     group_by(train_re_changes) %>%
     summarise(Mean = round(mean(!!sym(item), na.rm = TRUE), 2))
