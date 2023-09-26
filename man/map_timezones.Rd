@@ -7,7 +7,7 @@
 map_timezones(dat)
 }
 \arguments{
-\item{dat}{}
+\item{dat}{a dataframe}
 }
 \value{
 dataframe with timezones simplified

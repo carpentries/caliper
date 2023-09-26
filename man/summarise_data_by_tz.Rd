@@ -7,7 +7,7 @@
 summarise_data_by_tz(dat)
 }
 \arguments{
-\item{dat}{}
+\item{dat}{data frame}
 }
 \description{
 Summarise Trainer Availability Data by Timezone Group

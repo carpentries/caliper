@@ -2,7 +2,7 @@
 % Please edit documentation in R/instructor_training.R
 \name{badged_n_days}
 \alias{badged_n_days}
-\title{Title}
+\title{Badged Days}
 \usage{
 badged_n_days(trainee_data, days_threshold = 90)
 }
@@ -10,5 +10,5 @@ badged_n_days(trainee_data, days_threshold = 90)
 \item{days_threshold}{}
 }
 \description{
-Title
+Badged Days
 }

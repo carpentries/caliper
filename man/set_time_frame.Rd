@@ -2,7 +2,7 @@
 % Please edit documentation in R/tools.R
 \name{set_time_frame}
 \alias{set_time_frame}
-\title{Set Time Frame}
+\title{Filter Data Frame by start and end date}
 \usage{
 set_time_frame(dat, col, start, end)
 }
@@ -19,5 +19,10 @@ set_time_frame(dat, col, start, end)
 the dataframe filtered by the time range
 }
 \description{
-Set Time Frame
+Filter Data Frame by start and end date
+}
+\examples{
+trainee_progress <- fetch_redash(388)
+result <- set_time_frame(dat = trainee_progress, col = "training", start = "2021-01-01", end = "2021-12-31")
+head(result)
 }

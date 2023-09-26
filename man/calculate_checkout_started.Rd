@@ -2,13 +2,16 @@
 % Please edit documentation in R/instructor_training.R
 \name{calculate_checkout_started}
 \alias{calculate_checkout_started}
-\title{Title}
+\title{Calculate Checkout Started}
 \usage{
 calculate_checkout_started(trainee_progress, days_threshold = 90)
 }
 \arguments{
 \item{days_threshold}{}
 }
+\value{
+number of people who have started checkout
+}
 \description{
-Title
+Calculate Checkout Started
 }

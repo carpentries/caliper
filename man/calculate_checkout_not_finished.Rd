@@ -2,13 +2,16 @@
 % Please edit documentation in R/instructor_training.R
 \name{calculate_checkout_not_finished}
 \alias{calculate_checkout_not_finished}
-\title{Title}
+\title{Calculate checkout not finished}
 \usage{
 calculate_checkout_not_finished(trainee_progress, days_threshold = 90)
 }
 \arguments{
 \item{days_threshold}{}
 }
+\value{
+number of people who have started but not finished checkout
+}
 \description{
-Title
+Calculate checkout not finished
 }

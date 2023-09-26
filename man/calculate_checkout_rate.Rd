@@ -7,7 +7,7 @@
 calculate_checkout_rate(trainee_data, days_threshold = 90)
 }
 \arguments{
-\item{days_threshold}{}
+\item{days_threshold}{the number of days you would like to review, default = 90 days}
 }
 \value{
 percentage
