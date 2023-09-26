@@ -14,7 +14,7 @@ Imports:
   airtabler,
   paintbrush
 Remotes:
-  bergant/airtabler
+  bergant/airtabler,
   klbarnes20/paintbrush
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
