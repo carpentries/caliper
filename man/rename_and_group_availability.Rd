@@ -4,7 +4,7 @@
 \alias{rename_and_group_availability}
 \title{Rename and Group Trainer Availability Data}
 \usage{
-rename_and_group_availability(dat)
+rename_and_group_availability(df)
 }
 \arguments{
 \item{dat}{a dataframe}

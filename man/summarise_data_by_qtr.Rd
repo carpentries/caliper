@@ -18,4 +18,6 @@ q1_2034 <- as.data.frame(googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK
 result <- summarise_data_by_qtr(q1_2034)
 
 print(result)
+
+To do: Make this work with real quarter and year instead of 2034 01
 }
