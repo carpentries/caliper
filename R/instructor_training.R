@@ -13,14 +13,21 @@
 #'
 #' str(result)
 
-rename_and_group_availability <- function(dat) {
-  col_index <-
-    which(startsWith(names(dat), "Are you available to teach"))
-  if (length(col_index) == 0) {
+rename_and_group_availability <- function(df) {
+  # The regex pattern matches both spaces and dots
+  matching_cols <- grepl("available[\\.\\s]to[\\.\\s]teach", names(df), ignore.case = TRUE)
+
+  if(sum(matching_cols) > 1) {
+    stop("Error: Multiple matching columns found.")
+  }
+  if (sum(matching_cols) == 0) {
     stop("No matching column name found.")
   }
-  names(dat)[col_index] <- "availability"
-  return(dat)
+  col_index <-
+    which(matching_cols)
+
+  names(df)[col_index] <- "availability"
+  return(df)
 }
 
 
@@ -77,49 +84,61 @@ map_availability <- function(dat) {
 #' @import dplyr
 #'
 #' @examples
-#' sample_data <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
+#' sample_data_google <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
 #'
-#' result <-
-#' map_timezones(sample_data)
-#' print(result)
-map_timezones <- function(dat) {
-  dat <- dat %>%
-    map_availability() %>%
-    rename(timezone = "What time zone are you located in?")
+#' result_1 <-
+#' map_timezones(sample_data_google)
+#' print(result_1)
+#'
+#' sample_data_csv <- read.csv("data/trainer_availability_sample_data.csv")
+#' result_2 <- map_timezones(sample_data_csv)
+#' print(result_2)
+map_timezones <- function(df) {
+  # The regex pattern matches both spaces and dots
+  matching_cols <- grepl("What[\\.\\s]time[\\.\\s]zone[\\.\\s]are[\\.\\s]you[\\.\\s]located[\\.\\s]in", names(df), ignore.case = TRUE)
+  if(sum(matching_cols) > 1) {
+    stop("Error: Multiple matching columns found.")
+  }
+  if (sum(matching_cols) == 0) {
+    stop("No matching column name found.")
+  }
+  col_index <- which(matching_cols)
+  df <- df %>%
+    rename(timezone = names(df)[col_index])
 
-  dat <- dat %>% mutate(
+  df <- df %>% mutate(
     TZgroup = case_when(
-      stringr::str_detect(timezone, "UTC[-]12") ~ "TZ1",
-      stringr::str_detect(timezone, "UTC[-]11") ~ "TZ1",
-      stringr::str_detect(timezone, "UTC[-]10") ~ "TZ1",
-      stringr::str_detect(timezone, "UTC[-]9") ~ "TZ1",
-      stringr::str_detect(timezone, "UTC[-]8") ~ "TZ2",
-      stringr::str_detect(timezone, "UTC[-]7") ~ "TZ2",
-      stringr::str_detect(timezone, "UTC[-]6") ~ "TZ2",
-      stringr::str_detect(timezone, "UTC[-]5") ~ "TZ2",
-      stringr::str_detect(timezone, "UTC[-]4") ~ "TZ3",
-      stringr::str_detect(timezone, "UTC[-]3") ~ "TZ3",
-      stringr::str_detect(timezone, "UTC[-]2[:]?30") ~ "TZ3",
-      stringr::str_detect(timezone, "UTC[-]3") ~ "TZ3",
-      stringr::str_detect(timezone, "UTC[-]1") ~ "TZ3",
-      stringr::str_detect(timezone, "UTC[ ]?0") ~ "TZ4",
-      stringr::str_detect(timezone, "UTC[+]1") ~ "TZ4",
-      stringr::str_detect(timezone, "UTC[+]2") ~ "TZ4",
-      stringr::str_detect(timezone, "UTC[+]3") ~ "TZ4",
-      stringr::str_detect(timezone, "UTC[+]4") ~ "TZ5",
-      stringr::str_detect(timezone, "UTC[+]5") ~ "TZ5",
-      stringr::str_detect(timezone, "UTC[+]6") ~ "TZ5",
-      stringr::str_detect(timezone, "UTC[+]7") ~ "TZ5",
-      stringr::str_detect(timezone, "UTC[+]8") ~ "TZ6",
-      stringr::str_detect(timezone, "UTC[+]9") ~ "TZ6",
-      stringr::str_detect(timezone, "UTC[+]10") ~ "TZ6",
-      stringr::str_detect(timezone, "UTC[+]11") ~ "TZ6",
-      stringr::str_detect(timezone, "UTC[+]12") ~ "TZ6",
+      stringr::str_detect(timezone, "\\bUTC[-]11\\b") ~ "TZ1",
+      stringr::str_detect(timezone, "\\bUTC[-]12\\b") ~ "TZ1",
+      stringr::str_detect(timezone, "\\bUTC[-]10\\b") ~ "TZ1",
+      stringr::str_detect(timezone, "\\bUTC[-]9\\b") ~ "TZ1",
+      stringr::str_detect(timezone, "\\bUTC[-]8\\b") ~ "TZ2",
+      stringr::str_detect(timezone, "\\bUTC[-]7\\b") ~ "TZ2",
+      stringr::str_detect(timezone, "\\bUTC[-]6\\b") ~ "TZ2",
+      stringr::str_detect(timezone, "\\bUTC[-]5\\b") ~ "TZ2",
+      stringr::str_detect(timezone, "\\bUTC[-]4\\b") ~ "TZ3",
+      stringr::str_detect(timezone, "\\bUTC[-]3\\b") ~ "TZ3",
+      stringr::str_detect(timezone, "\\bUTC[-]2[:]?30\\b") ~ "TZ3",
+      stringr::str_detect(timezone, "\\bUTC[-]3\\b") ~ "TZ3",
+      stringr::str_detect(timezone, "\\bUTC[-]1\\b") ~ "TZ3",
+      stringr::str_detect(timezone, "\\bUTC[ ]?0\\b") ~ "TZ4",
+      stringr::str_detect(timezone, "\\bUTC[+]1\\b") ~ "TZ4",
+      stringr::str_detect(timezone, "\\bUTC[+]2\\b") ~ "TZ4",
+      stringr::str_detect(timezone, "\\bUTC[+]3\\b") ~ "TZ4",
+      stringr::str_detect(timezone, "\\bUTC[+]4\\b") ~ "TZ5",
+      stringr::str_detect(timezone, "\\bUTC[+]5\\b") ~ "TZ5",
+      stringr::str_detect(timezone, "\\bUTC[+]6\\b") ~ "TZ5",
+      stringr::str_detect(timezone, "\\bUTC[+]7\\b") ~ "TZ5",
+      stringr::str_detect(timezone, "\\bUTC[+]8\\b") ~ "TZ6",
+      stringr::str_detect(timezone, "\\bUTC[+]9\\b") ~ "TZ6",
+      stringr::str_detect(timezone, "\\bUTC[+]10\\b") ~ "TZ6",
+      stringr::str_detect(timezone, "\\bUTC[+]11\\b") ~ "TZ6",
+      stringr::str_detect(timezone, "\\bUTC[+]12\\b") ~ "TZ6",
       TRUE ~ "TZother"
     )
   )
 
-  return(dat)
+  return(df)
 }
 
 #' Extract Quarter and Year from Filename
@@ -163,6 +182,8 @@ extract_year_quarter <- function(df) {
 #'result <- summarise_data_by_qtr(q1_2034)
 #'
 #' print(result)
+#'
+#' To do: Make this work with real quarter and year instead of 2034 01
 summarise_data_by_qtr <- function(dat) {
   dat %>%
     map_availability() %>%
@@ -189,6 +210,7 @@ summarise_data_by_tz <- function(dat) {
   dat %>%
     mutate(year = "2034",
            quarter = "1") %>%
+    map_availability() %>%
     map_timezones() %>%
     group_by(year, quarter, TZgroup, availability) %>%
     summarise(Number = sum(n()))
@@ -366,6 +388,8 @@ calculate_dropout_rate <-
 #' @export
 #'
 #' @examples
+#' trainee_progress <- fetch_redash(388)
+#' (calculate_avg_time_to_checkout(trainee_progress))
 calculate_avg_time_to_checkout <-
   function(trainee_progress, days_threshold = 90) {
     trainee_progress <- trainee_progress %>%
@@ -394,6 +418,7 @@ calculate_avg_time_to_checkout <-
 #'
 #' @examples
 calculate_wksurvey_item_mean <- function(data, item) {
+  go_live_date <- as.Date("2023-08-14")
   data <- data %>% mutate_at(
     c(
       'instructors_clear_answers',

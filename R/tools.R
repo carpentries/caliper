@@ -12,7 +12,7 @@ calculate_rate <- function(xsmaller, ylarger) {
   paste0(round(xsmaller / ylarger * 100, 2), "%")
 }
 
-#' Set Time Frame
+#' Filter Data Frame by start and end date
 #'
 #' @param dat a dataframe
 #' @param col a column in the dataframe
