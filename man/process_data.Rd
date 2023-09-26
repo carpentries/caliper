@@ -7,7 +7,7 @@
 process_data(dat)
 }
 \arguments{
-\item{dat}{}
+\item{dat}{data frame}
 }
 \description{
 Process Trainer Availability Data

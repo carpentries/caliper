@@ -7,7 +7,7 @@
 map_availability(dat)
 }
 \arguments{
-\item{dat}{}
+\item{dat}{a dataframe}
 }
 \value{
 data frame with availability column simplified
