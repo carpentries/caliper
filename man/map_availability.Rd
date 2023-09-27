@@ -16,8 +16,13 @@ data frame with availability column simplified
 Map Trainer Availability
 }
 \examples{
-sample_data <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
+sample_data_google <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
 
-result <- map_availability(sample_data)
-str(result)
+result_1 <-
+map_availability(sample_data_google)
+print(result_1)
+
+sample_data_csv <- read.csv("data/trainer_availability_sample_data.csv")
+result_2 <- map_availability(sample_data_csv)
+print(result_2)
 }
