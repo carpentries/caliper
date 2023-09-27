@@ -2,7 +2,7 @@
 % Please edit documentation in R/instructor_training.R
 \name{trainees_n_days}
 \alias{trainees_n_days}
-\title{Trainee Days}
+\title{Trainees who are X number of days since Training (Default = 90 days)}
 \usage{
 trainees_n_days(trainee_data, days_threshold = 90)
 }
@@ -10,5 +10,5 @@ trainees_n_days(trainee_data, days_threshold = 90)
 \item{days_threshold}{}
 }
 \description{
-Trainee Days
+Trainees who are X number of days since Training (Default = 90 days)
 }

@@ -14,3 +14,10 @@ calculate_wksurvey_item_mean(data, item)
 \description{
 Calculate Workshop Survey Item Mean
 }
+\examples{
+ mock_data <- data.frame(submitted_at = as.Date(c("2023-08-15", "2023-08-13")), instructors_clear_answers = c(4, 5))
+result <- calculate_wksurvey_item_mean(mock_data, "instructors_clear_answers")
+print(result)
+
+
+}
