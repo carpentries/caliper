@@ -1,36 +1,3 @@
-#' Rename and Group Trainer Availability Data
-#'
-#' @param dat a dataframe
-#'
-#' @return
-#' @export
-#' @importFrom googlesheets4 read_sheet
-#'
-#' @examples
-#' sample_data <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
-#'
-#' result <- rename_and_group_availability(sample_data)
-#'
-#' str(result)
-
-rename_and_group_availability <- function(df) {
-  # The regex pattern matches both spaces and dots
-  matching_cols <- grepl("available[\\.\\s]to[\\.\\s]teach", names(df), ignore.case = TRUE)
-
-  if(sum(matching_cols) > 1) {
-    stop("Error: Multiple matching columns found.")
-  }
-  if (sum(matching_cols) == 0) {
-    stop("No matching column name found.")
-  }
-  col_index <-
-    which(matching_cols)
-
-  names(df)[col_index] <- "availability"
-  return(df)
-}
-
-
 #' Map Trainer Availability
 #'
 #' @param dat a dataframe
@@ -41,10 +8,15 @@ rename_and_group_availability <- function(df) {
 #' @importFrom googlesheets4 read_sheet
 #'
 #' @examples
-#' sample_data <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
+#' sample_data_google <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
 #'
-#' result <- map_availability(sample_data)
-#' str(result)
+#' result_1 <-
+#' map_availability(sample_data_google)
+#' print(result_1)
+#'
+#' sample_data_csv <- read.csv("data/trainer_availability_sample_data.csv")
+#' result_2 <- map_availability(sample_data_csv)
+#' print(result_2)
 map_availability <- function(dat) {
   maybe_vector <-
     c(
@@ -60,9 +32,21 @@ map_availability <- function(dat) {
     "Yes, I am available to teach online Instructor Training",
     "Yes, I am available to teach online Instructor Training and/or Bonus Modules"
   )
+  # The regex pattern matches both spaces and dots
+  matching_cols <- grepl("available[\\.\\s]to[\\.\\s]teach", names(dat), ignore.case = TRUE)
+
+  if(sum(matching_cols) > 1) {
+    stop("Error: Multiple matching columns found.")
+  }
+  if (sum(matching_cols) == 0) {
+    stop("No matching column name found.")
+  }
+  col_index <-
+    which(matching_cols)
+
+  names(dat)[col_index] <- "availability"
 
   dat <- dat %>%
-    rename_and_group_availability() %>%
     mutate(
       availability = case_when(
         availability %in% maybe_vector ~ "maybe",
@@ -216,24 +200,7 @@ summarise_data_by_tz <- function(dat) {
     summarise(Number = sum(n()))
 }
 
-#' Process Trainer Availability Data
-#'
-#' @param dat data frame
-#'
-#' @return
-#' @export
-#'
-#' @examples
-process_data <- function(dat) {
-  dat <- rename_and_group_availability(dat)
-  dat <- map_timezones(dat)
-  dat <- map_availability(dat)
-
-  dat %>% summarise_data_by_qtr()
-  dat %>% summarise_data_by_tz()
-}
-
-#' Trainee Days
+#' Trainees who are X number of days since Training (Default = 90 days)
 #'
 #' @param trainee_data
 #' @param days_threshold
@@ -295,6 +262,9 @@ badged_n_days <- function(trainee_data, days_threshold = 90) {
 calculate_checkout_rate <-
   function(trainee_data, days_threshold = 90) {
     trainee_days <- trainees_n_days(trainee_data, days_threshold)
+    if(trainee_days == 0) {
+      stop("trainee_days cannot be zero. Exiting function.")
+    }
     badged_days <- badged_n_days(trainee_data, days_threshold)
     checkout_rate <- calculate_rate(badged_days, trainee_days)
 
@@ -371,6 +341,9 @@ calculate_checkout_not_finished <-
 #' @examples
 calculate_dropout_rate <-
   function(trainee_progress, days_threshold = 90) {
+    if (nrow(trainee_progress) == 0 || all(trainee_progress$get_involved == "" & trainee_progress$teaching_demo == "" & trainee_progress$welcome == "")) {
+      return(NA)
+    }
     n_started <- calculate_checkout_started(trainee_progress)
     n_not_finished <-
       calculate_checkout_not_finished(trainee_progress)
@@ -417,24 +390,31 @@ calculate_avg_time_to_checkout <-
 #' @export
 #'
 #' @examples
+#'  mock_data <- data.frame(submitted_at = as.Date(c("2023-08-15", "2023-08-13")), instructors_clear_answers = c(4, 5))
+#' result <- calculate_wksurvey_item_mean(mock_data, "instructors_clear_answers")
+#' print(result)
+#'
+#'
 calculate_wksurvey_item_mean <- function(data, item) {
-  go_live_date <- as.Date("2023-08-14")
-  data <- data %>% mutate_at(
-    c(
-      'instructors_clear_answers',
-      'instructors_enthusiastic',
-      'instructors_comfortable_interaction',
-      'instructors_knowledgeable',
-      'recommendation_score'
-    ),
-    as.numeric
-  ) %>%
-    mutate(train_re_changes = as.factor(ifelse(
-      submitted_at < go_live_date, "before", "after"
-    ))) %>%
-    filter(!is.na(!!sym(item)) & !is.na(train_re_changes)) %>%
-    group_by(train_re_changes) %>%
-    summarise(Mean = round(mean(!!sym(item), na.rm = TRUE), 2))
+  existing_cols <- intersect(names(data), c(
+    'instructors_clear_answers',
+    'instructors_enthusiastic',
+    'instructors_comfortable_interaction',
+    'instructors_knowledgeable',
+    'recommendation_score'
+  ))
 
+  data <- data %>% mutate_at(
+    existing_cols, as.numeric) %>%
+    mutate(train_re_changes = as.factor(ifelse(
+      submitted_at < as.Date("2023-08-14"), #go live date
+      "before", "after"
+    ))) %>%
+    filter(!is.na(.data[[item]]) & !is.na(train_re_changes)) %>%
+    group_by(train_re_changes) %>%
+    summarise(Mean = round(mean(.data[[item]], na.rm = TRUE), 2)) %>%
+arrange(desc(train_re_changes))
   return(data)
 }
+
+
