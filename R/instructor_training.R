@@ -1,22 +1,13 @@
 #' Map Trainer Availability
 #'
-#' @param dat a dataframe
+#' @param dat a data frame
 #'
 #' @return data frame with availability column simplified
 #' @export
 #' @import dplyr
-#' @importFrom googlesheets4 read_sheet
 #'
 #' @examples
-#' sample_data_google <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
-#'
-#' result_1 <-
-#' map_availability(sample_data_google)
-#' print(result_1)
-#'
-#' sample_data_csv <- read.csv("data/trainer_availability_sample_data.csv")
-#' result_2 <- map_availability(sample_data_csv)
-#' print(result_2)
+
 map_availability <- function(dat) {
   maybe_vector <-
     c(
@@ -33,9 +24,12 @@ map_availability <- function(dat) {
     "Yes, I am available to teach online Instructor Training and/or Bonus Modules"
   )
   # The regex pattern matches both spaces and dots
-  matching_cols <- grepl("available[\\.\\s]to[\\.\\s]teach", names(dat), ignore.case = TRUE)
+  matching_cols <-
+    grepl("available[\\.\\s]to[\\.\\s]teach",
+          names(dat),
+          ignore.case = TRUE)
 
-  if(sum(matching_cols) > 1) {
+  if (sum(matching_cols) > 1) {
     stop("Error: Multiple matching columns found.")
   }
   if (sum(matching_cols) == 0) {
@@ -60,27 +54,24 @@ map_availability <- function(dat) {
 
 #' Map Timezones
 #'
-#' @param dat a dataframe
+#' @param df a data frame
 #'
-#' @return dataframe with timezones simplified
+#' @return data frame with timezones simplified
 #' @export
 #' @importFrom stringr str_detect
 #' @import dplyr
 #'
 #' @examples
-#' sample_data_google <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
 #'
-#' result_1 <-
-#' map_timezones(sample_data_google)
-#' print(result_1)
-#'
-#' sample_data_csv <- read.csv("data/trainer_availability_sample_data.csv")
-#' result_2 <- map_timezones(sample_data_csv)
-#' print(result_2)
 map_timezones <- function(df) {
   # The regex pattern matches both spaces and dots
-  matching_cols <- grepl("What[\\.\\s]time[\\.\\s]zone[\\.\\s]are[\\.\\s]you[\\.\\s]located[\\.\\s]in", names(df), ignore.case = TRUE)
-  if(sum(matching_cols) > 1) {
+  matching_cols <-
+    grepl(
+      "What[\\.\\s]time[\\.\\s]zone[\\.\\s]are[\\.\\s]you[\\.\\s]located[\\.\\s]in",
+      names(df),
+      ignore.case = TRUE
+    )
+  if (sum(matching_cols) > 1) {
     stop("Error: Multiple matching columns found.")
   }
   if (sum(matching_cols) == 0) {
@@ -127,18 +118,18 @@ map_timezones <- function(df) {
 
 #' Extract Quarter and Year from Filename
 #'
-#' @param filename
+#' @param filename a file name
 #'
-#' @return
+#' @return a list of two values, the quarter and the year
 #' @export
 #'
 #' @examples
 #' Q1_2034 <- data.frame()
 #' result <- extract_year_quarter(Q1_2034)
 #' print(result)
-extract_year_quarter <- function(df) {
-  # Capture the name of the dataframe as a string
-  df_name <- deparse(substitute(df))
+extract_year_quarter <- function(filename) {
+  # Capture the name of the data frame as a string
+  df_name <- deparse(substitute(filename))
 
   # Use a regular expression to extract the quarter and year
   matches <-
@@ -155,19 +146,17 @@ extract_year_quarter <- function(df) {
 
 #' Summarise Trainer Availability Data by Quarter
 #'
-#' @param dat
+#' @param dat a data frame
 #'
-#' @return
+#' @return a data frame
 #' @export
 #' @import dplyr
 #' @examples
-#'q1_2034 <- as.data.frame(googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI"))
+
 #'
-#'result <- summarise_data_by_qtr(q1_2034)
 #'
-#' print(result)
-#'
-#' To do: Make this work with real quarter and year instead of 2034 01
+
+#To do: Make this work with real quarter and year instead of 2034 01
 summarise_data_by_qtr <- function(dat) {
   dat %>%
     map_availability() %>%
@@ -181,15 +170,11 @@ summarise_data_by_qtr <- function(dat) {
 #'
 #' @param dat data frame
 #'
-#' @return
+#' @return a data frame
 #' @export
 #'
 #' @examples
-#' q1_2034 <- as.data.frame(googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI"))
-#'
-#'result <- summarise_data_by_tz(q1_2034)
-#'
-#' print(result)
+
 summarise_data_by_tz <- function(dat) {
   dat %>%
     mutate(year = "2034",
@@ -202,10 +187,10 @@ summarise_data_by_tz <- function(dat) {
 
 #' Trainees who are X number of days since Training (Default = 90 days)
 #'
-#' @param trainee_data
-#' @param days_threshold
+#' @param trainee_data a data frame
+#' @param days_threshold the number of days past training (default = 90)
 #'
-#' @return
+#' @return a single number
 #' @export
 #'
 #' @examples
@@ -225,10 +210,10 @@ trainees_n_days <- function(trainee_data, days_threshold = 90) {
 
 #' Badged Days
 #'
-#' @param trainee_data
-#' @param days_threshold
+#' @param trainee_data a data frame
+#' @param days_threshold the number of days past training (default = 90)
 #'
-#' @return
+#' @return a single number
 #' @export
 #'
 #' @examples
@@ -252,7 +237,7 @@ badged_n_days <- function(trainee_data, days_threshold = 90) {
 
 #' Calculate checkout rate
 #'
-#' @param trainee_data
+#' @param trainee_data a data frame
 #' @param days_threshold the number of days you would like to review, default = 90 days
 #'
 #' @return percentage
@@ -262,7 +247,28 @@ badged_n_days <- function(trainee_data, days_threshold = 90) {
 calculate_checkout_rate <-
   function(trainee_data, days_threshold = 90) {
     trainee_days <- trainees_n_days(trainee_data, days_threshold)
-    if(trainee_days == 0) {
+    if (trainee_days == 0) {
+      stop("trainee_days cannot be zero. Exiting function.")
+    }
+    badged_days <- badged_n_days(trainee_data, days_threshold)
+    checkout_rate <- calculate_rate(badged_days, trainee_days)
+
+    return(checkout_rate)
+  }
+
+#' Calculate Re-engagement rate
+#'
+#' @param trainee_data a data frame
+#' @param days_threshold the number of days you would like to review, default = 180 days (6 months)
+#'
+#' @return percentage
+#' @export
+#'
+#' @examples
+calculate_reengagement_rate <-
+  function(trainee_data, days_threshold = 180) {
+    trainee_days <- trainees_n_days(trainee_data, days_threshold)
+    if (trainee_days == 0) {
       stop("trainee_days cannot be zero. Exiting function.")
     }
     badged_days <- badged_n_days(trainee_data, days_threshold)
@@ -273,8 +279,8 @@ calculate_checkout_rate <-
 
 #' Calculate Checkout Started
 #'
-#' @param trainee_progress
-#' @param days_threshold
+#' @param trainee_progress a data frame
+#' @param days_threshold the number of days past training (default = 90)
 #'
 #' @return number of people who have started checkout
 #' @export
@@ -303,8 +309,8 @@ calculate_checkout_started <-
 #
 #' Calculate checkout not finished
 #'
-#' @param trainee_progress
-#' @param days_threshold
+#' @param trainee_progress a data frame
+#' @param days_threshold the number of days past training (default = 90)
 #'
 #' @return number of people who have started but not finished checkout
 #' @export
@@ -332,8 +338,8 @@ calculate_checkout_not_finished <-
 
 #' Instructor Checkout Dropout Rate
 #'
-#' @param trainee_progress
-#' @param days_threshold
+#' @param trainee_progress a data frame
+#' @param days_threshold the number of days past training (default = 90)
 #'
 #' @return percentage
 #' @export
@@ -341,7 +347,12 @@ calculate_checkout_not_finished <-
 #' @examples
 calculate_dropout_rate <-
   function(trainee_progress, days_threshold = 90) {
-    if (nrow(trainee_progress) == 0 || all(trainee_progress$get_involved == "" & trainee_progress$teaching_demo == "" & trainee_progress$welcome == "")) {
+    if (nrow(trainee_progress) == 0 ||
+        all(
+          trainee_progress$get_involved == "" &
+          trainee_progress$teaching_demo == "" &
+          trainee_progress$welcome == ""
+        )) {
       return(NA)
     }
     n_started <- calculate_checkout_started(trainee_progress)
@@ -383,10 +394,10 @@ calculate_avg_time_to_checkout <-
 
 #' Calculate Workshop Survey Item Mean
 #'
-#' @param data dataframe
+#' @param data data frame
 #' @param item column name
 #'
-#' @return
+#' @return a data frame of the mean before and after for the item
 #' @export
 #'
 #' @examples
@@ -396,16 +407,18 @@ calculate_avg_time_to_checkout <-
 #'
 #'
 calculate_wksurvey_item_mean <- function(data, item) {
-  existing_cols <- intersect(names(data), c(
-    'instructors_clear_answers',
-    'instructors_enthusiastic',
-    'instructors_comfortable_interaction',
-    'instructors_knowledgeable',
-    'recommendation_score'
-  ))
+  existing_cols <- intersect(
+    names(data),
+    c(
+      'instructors_clear_answers',
+      'instructors_enthusiastic',
+      'instructors_comfortable_interaction',
+      'instructors_knowledgeable',
+      'recommendation_score'
+    )
+  )
 
-  data <- data %>% mutate_at(
-    existing_cols, as.numeric) %>%
+  data <- data %>% mutate_at(existing_cols, as.numeric) %>%
     mutate(train_re_changes = as.factor(ifelse(
       submitted_at < as.Date("2023-08-14"), #go live date
       "before", "after"
@@ -413,8 +426,77 @@ calculate_wksurvey_item_mean <- function(data, item) {
     filter(!is.na(.data[[item]]) & !is.na(train_re_changes)) %>%
     group_by(train_re_changes) %>%
     summarise(Mean = round(mean(.data[[item]], na.rm = TRUE), 2)) %>%
-arrange(desc(train_re_changes))
+    arrange(desc(train_re_changes))
   return(data)
 }
 
+#' Number of Trainings Trainers Have Taught
+#'
+#' @param dat a data frame
+#'
+#' @return a data frame
+#' @export
+#'
+#' @examples
 
+count_trainings <- function(dat) {
+  num_trainings <- dat %>%
+    select(personal, family, active_status, total_trainings) %>%
+    group_by(active_status) %>%
+    arrange(active_status, desc(total_trainings))
+  return(num_trainings)
+}
+
+
+#' Count Trainings by Year
+#'
+#' @param dat a data frame
+#'
+#' @return a data frame
+#' @export
+#'
+#' @examples
+#'
+count_trainings_yr <- function(dat) {
+  activity_by_year <- dat %>%
+    mutate(year = lubridate::year(as.Date(start, format = "%Y-%m-%d"))) %>%
+    group_by(family, personal, year) %>%
+    summarise(Number = n())
+  return(activity_by_year)
+}
+
+#' Count Trainings by Relative Year
+#'
+#' @param dat a data frame
+#'
+#' @return a data frame
+#' @export
+#' @importFrom lubridate year
+#' @examples
+#'
+count_trainings_rel_yr <- function(dat) {
+  trainer_activity <- dat %>%
+    mutate(year = lubridate::year(as.Date(start)))
+
+  # Calculate Year of first event for each trainer
+  trainer_start_yr <- trainer_activity %>%
+    group_by(family, personal) %>%
+    summarise(start_year = min(year))
+
+  # Merge start year into trainer_activity
+
+  trainer_activity <-
+    inner_join(trainer_activity,
+               trainer_start_yr,
+               by = c("family", "personal"))
+
+  # Calculate relative year
+
+  trainer_activity <- trainer_activity %>%
+    mutate(relative_year = year - start_year)
+
+  activity_by_relative_year <- trainer_activity %>%
+    group_by(year, relative_year) %>%
+    summarise(Number = n())
+  return(activity_by_relative_year)
+}
