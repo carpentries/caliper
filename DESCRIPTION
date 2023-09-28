@@ -12,7 +12,8 @@ Imports:
   stringr, 
   ggplot2,
   airtabler,
-  paintbrush
+  paintbrush, 
+  lubridate
 Remotes:
   bergant/airtabler,
   klbarnes20/paintbrush

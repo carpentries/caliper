@@ -7,7 +7,7 @@
 fetch_redash(query_id)
 }
 \arguments{
-\item{query_id}{}
+\item{query_id}{Can be found in redash.}
 }
 \value{
 the data frame from the redash query supplied
@@ -17,6 +17,6 @@ Fetch Redash Data
 }
 \examples{
 
-fetch_redash(17)
+test <- fetch_redash(17)
 
 }

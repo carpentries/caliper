@@ -1,14 +1,15 @@
 # Function to Generate Plot
 #' Generate Plots
 #'
-#' @param dat
-#' @param x
-#' @param y
-#' @param fill
+#' @param dat data frame
+#' @param x variable on x axis
+#' @param y variable on y axis
+#' @param fill variable to be used at fill
 #'
 #' @return plot
 #' @export
 #' @import ggplot2
+#' @import paintbrush
 #'
 #' @examples
 generate_plot <- function(dat, x, y, fill = NULL) {
@@ -23,10 +24,10 @@ generate_plot <- function(dat, x, y, fill = NULL) {
 
 #' Save and Export Plots
 #'
-#' @param dir
-#' @param plot
+#' @param dir a file directory to save the plot
+#' @param plot the name of the plot
 #'
-#' @return
+#' @return a file
 #' @import ggplot2
 #' @export
 #'

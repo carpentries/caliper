@@ -7,7 +7,12 @@
 save_plot(dir, plot)
 }
 \arguments{
-\item{plot}{}
+\item{dir}{a file directory to save the plot}
+
+\item{plot}{the name of the plot}
+}
+\value{
+a file
 }
 \description{
 Save and Export Plots

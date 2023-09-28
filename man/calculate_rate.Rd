@@ -7,7 +7,9 @@
 calculate_rate(xsmaller, ylarger)
 }
 \arguments{
-\item{ylarger}{}
+\item{xsmaller}{the smaller number}
+
+\item{ylarger}{the larger number}
 }
 \value{
 a percentage

@@ -7,7 +7,13 @@
 generate_plot(dat, x, y, fill = NULL)
 }
 \arguments{
-\item{fill}{}
+\item{dat}{data frame}
+
+\item{x}{variable on x axis}
+
+\item{y}{variable on y axis}
+
+\item{fill}{variable to be used at fill}
 }
 \value{
 plot

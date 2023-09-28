@@ -1,0 +1,11 @@
+person_id,personal,family,email,country,active_status,latest_inactive_date,badge_date,total_trainings
+234567,Aiden,Smith,Smith@example.com,US,Active,,2022-04-12,0
+890123,Lakshmi,Patel,Patel@example.net,IN,Inactive ,2022-08-17,2019-04-08,4
+546789,Fatima,Al-Mansoor,Al-Mansoor@example.org,SA,Active,,2020-11-24,8
+678902,Hiroshi,Yamamoto,Yamamoto@example.co.jp,JP,Active,,2021-07-22,2
+413256,Tariq,El-Amin,El-Amin@example.co,EG,Active,,2023-07-20,1
+892315,Olga,Ivanov,Ivanov@example.ru,RU,Active,,2018-03-12,6
+120456,Ximena,Rodriguez,Rodriguez@example.es,ES,Active,,2022-04-12,0
+785632,Kwame,Osei,Osei@example.gh,GH,Inactive ,2022-08-17,2018-03-12,3
+347890,Mei,Li,Li@example.cn,CN,Active,,2022-04-12,3
+961234,Ingrid,Johansson,Johansson@example.se,SE,Inactive ,2019-09-04,2019-09-04,1

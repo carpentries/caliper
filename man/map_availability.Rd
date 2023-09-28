@@ -7,17 +7,11 @@
 map_availability(dat)
 }
 \arguments{
-\item{dat}{a dataframe}
+\item{dat}{a data frame}
 }
 \value{
 data frame with availability column simplified
 }
 \description{
 Map Trainer Availability
-}
-\examples{
-sample_data <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
-
-result <- map_availability(sample_data)
-str(result)
 }
