@@ -7,7 +7,12 @@
 fetch_airtable(id, db_name)
 }
 \arguments{
-\item{db_name}{}
+\item{id}{the base id. Can be found in Airtable API documentation}
+
+\item{db_name}{the Database name. Can be found in Airtable API documentation.}
+}
+\value{
+data frame
 }
 \description{
 Fetch Airtable Data

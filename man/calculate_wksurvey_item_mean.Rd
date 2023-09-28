@@ -7,9 +7,12 @@
 calculate_wksurvey_item_mean(data, item)
 }
 \arguments{
-\item{data}{dataframe}
+\item{data}{data frame}
 
 \item{item}{column name}
+}
+\value{
+a data frame of the mean before and after for the item
 }
 \description{
 Calculate Workshop Survey Item Mean

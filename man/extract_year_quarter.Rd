@@ -4,10 +4,13 @@
 \alias{extract_year_quarter}
 \title{Extract Quarter and Year from Filename}
 \usage{
-extract_year_quarter(df)
+extract_year_quarter(filename)
 }
 \arguments{
-\item{filename}{}
+\item{filename}{a file name}
+}
+\value{
+a list of two values, the quarter and the year
 }
 \description{
 Extract Quarter and Year from Filename

@@ -7,7 +7,12 @@
 trainees_n_days(trainee_data, days_threshold = 90)
 }
 \arguments{
-\item{days_threshold}{}
+\item{trainee_data}{a data frame}
+
+\item{days_threshold}{the number of days past training (default = 90)}
+}
+\value{
+a single number
 }
 \description{
 Trainees who are X number of days since Training (Default = 90 days)

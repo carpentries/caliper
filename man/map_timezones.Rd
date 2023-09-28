@@ -7,22 +7,11 @@
 map_timezones(df)
 }
 \arguments{
-\item{dat}{a dataframe}
+\item{df}{a data frame}
 }
 \value{
-dataframe with timezones simplified
+data frame with timezones simplified
 }
 \description{
 Map Timezones
-}
-\examples{
-sample_data_google <- googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI")
-
-result_1 <-
-map_timezones(sample_data_google)
-print(result_1)
-
-sample_data_csv <- read.csv("data/trainer_availability_sample_data.csv")
-result_2 <- map_timezones(sample_data_csv)
-print(result_2)
 }

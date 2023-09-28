@@ -9,13 +9,9 @@ summarise_data_by_tz(dat)
 \arguments{
 \item{dat}{data frame}
 }
+\value{
+a data frame
+}
 \description{
 Summarise Trainer Availability Data by Timezone Group
-}
-\examples{
-q1_2034 <- as.data.frame(googlesheets4::read_sheet("1epfbcCrR2WsaaDo_rNNvX8GrSJK0Px2m9ph6Oj6sEhI"))
-
-result <- summarise_data_by_tz(q1_2034)
-
-print(result)
 }
