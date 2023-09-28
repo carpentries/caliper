@@ -1,7 +1,7 @@
 #' Calculate a rate
 #'
-#' @param xsmaller
-#' @param ylarger
+#' @param xsmaller the smaller number
+#' @param ylarger the larger number
 #'
 #' @return a percentage
 #' @export
