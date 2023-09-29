@@ -1,3 +1,3 @@
-2# caliper (development version)
+# caliper (development version)
 
 * Initial CRAN submission.
