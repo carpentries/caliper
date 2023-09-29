@@ -2,16 +2,26 @@
 % Please edit documentation in R/instructor_training.R
 \name{map_availability}
 \alias{map_availability}
-\title{Map Trainer Availability}
+\title{Simplify Trainer Availability Information}
 \usage{
 map_availability(dat)
 }
 \arguments{
-\item{dat}{a data frame}
+\item{dat}{Dataframe; The data frame containing trainer availability information. Comes from Trainer Quarterly Availability Form.}
 }
 \value{
-data frame with availability column simplified
+Dataframe; The modified data frame with a simplified 'availability' column.
+Throws an error if no column or multiple columns match the pattern for availability.
 }
 \description{
-Map Trainer Availability
+This function takes a data frame and simplifies the availability information for trainers.
+It maps verbose availability statements to simplified categories ("yes", "maybe", "no").
+The function searches for a column with the name matching a pattern related to 'availability to teach' and performs the mapping in that column.
+}
+\examples{
+\dontrun{
+  # Assume 'trainer_data' is a data frame with an appropriate availability column
+  simplified_data <- map_availability(trainer_data)
+  print(simplified_data)
+}
 }

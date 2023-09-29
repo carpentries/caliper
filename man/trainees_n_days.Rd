@@ -2,18 +2,32 @@
 % Please edit documentation in R/instructor_training.R
 \name{trainees_n_days}
 \alias{trainees_n_days}
-\title{Trainees who are X number of days since Training (Default = 90 days)}
+\title{Count of Trainees Who Have Passed a Given Number of Days Since Training}
 \usage{
 trainees_n_days(trainee_data, days_threshold = 90)
 }
 \arguments{
-\item{trainee_data}{a data frame}
+\item{trainee_data}{data.frame
+A raw data frame containing trainee data with columns \code{training} and \code{instr_badge} as date strings.}
 
-\item{days_threshold}{the number of days past training (default = 90)}
+\item{days_threshold}{integer
+The number of days past the training date to consider. Defaults to 90 days.}
 }
 \value{
-a single number
+integer
+Returns the count of trainees who are past the specified number of days since their training.
 }
 \description{
-Trainees who are X number of days since Training (Default = 90 days)
+This function calculates the number of trainees who are past a specified number of days since their training.
+}
+\examples{
+\dontrun{
+  raw_trainee_data <- data.frame(
+    training = c("2023-01-01", "2023-01-10"),
+    instr_badge = c("2023-02-01", NA)
+  )
+  count <- trainees_n_days(raw_trainee_data, 90)
+  print(count)
+}
+
 }

@@ -2,18 +2,27 @@
 % Please edit documentation in R/instructor_training.R
 \name{calculate_checkout_started}
 \alias{calculate_checkout_started}
-\title{Calculate Checkout Started}
+\title{Calculate Number of Trainees Who Have Started Checkout}
 \usage{
 calculate_checkout_started(trainee_progress, days_threshold = 90)
 }
 \arguments{
-\item{trainee_progress}{a data frame}
+\item{trainee_progress}{data.frame
+A data frame containing checkout steps for each trainee, like 'get_involved', 'teaching_demo', and 'welcome'.}
 
-\item{days_threshold}{the number of days past training (default = 90)}
+\item{days_threshold}{integer
+The number of days since training to consider. Default is 90 days.}
 }
 \value{
-number of people who have started checkout
+integer
+Returns the number of trainees who have started the checkout process.
 }
 \description{
-Calculate Checkout Started
+This function calculates the number of trainees who have started the checkout process within a specified number of days since their training.
+}
+\examples{
+\dontrun{
+  raw_data <- data.frame(...)
+  n_started_checkout <- calculate_checkout_started(raw_data, 90)
+}
 }

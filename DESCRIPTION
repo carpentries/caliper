@@ -13,7 +13,8 @@ Imports:
   ggplot2,
   airtabler,
   paintbrush, 
-  lubridate
+  lubridate, 
+  rlang
 Remotes:
   bergant/airtabler,
   klbarnes20/paintbrush

@@ -2,18 +2,31 @@
 % Please edit documentation in R/instructor_training.R
 \name{badged_n_days}
 \alias{badged_n_days}
-\title{Badged Days}
+\title{Count of Trainees Badged Within a Given Number of Days Since Training}
 \usage{
 badged_n_days(trainee_data, days_threshold = 90)
 }
 \arguments{
-\item{trainee_data}{a data frame}
+\item{trainee_data}{data.frame
+A raw data frame containing trainee data with columns \code{training} and \code{instr_badge} as date strings.}
 
-\item{days_threshold}{the number of days past training (default = 90)}
+\item{days_threshold}{integer
+The maximum number of days between training and badging to consider. Defaults to 90 days.}
 }
 \value{
-a single number
+integer
+Returns the count of trainees who have been badged within the specified number of days since their training.
 }
 \description{
-Badged Days
+This function calculates the number of trainees who have been badged within a specified number of days since their training.
+}
+\examples{
+\dontrun{
+  raw_trainee_data <- data.frame(
+    training = c("2023-01-01", "2023-01-10"),
+    instr_badge = c("2023-02-01", NA)
+  )
+  count <- badged_n_days(raw_trainee_data, 90)
+  print(count)
+}
 }

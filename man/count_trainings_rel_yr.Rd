@@ -2,16 +2,24 @@
 % Please edit documentation in R/instructor_training.R
 \name{count_trainings_rel_yr}
 \alias{count_trainings_rel_yr}
-\title{Count Trainings by Relative Year}
+\title{Count of Trainings by Relative Year from Start of Training Career}
 \usage{
 count_trainings_rel_yr(dat)
 }
 \arguments{
-\item{dat}{a data frame}
+\item{dat}{data.frame
+A data frame containing columns 'family', 'personal', and 'start' (start date of the training).}
 }
 \value{
-a data frame
+data.frame
+Returns a data frame grouped by 'year' and 'relative_year', summarizing the number of trainings in that relative year.
 }
 \description{
-Count Trainings by Relative Year
+Calculates the number of trainings conducted by each trainer, grouped by their career-relative year.
+}
+\examples{
+\dontrun{
+  df <- data.frame(family = c("Smith", "Jones"), personal = c("Alice", "Bob"), start = c("2021-05-01", "2022-04-01"))
+  result <- count_trainings_rel_yr(df)
+}
 }

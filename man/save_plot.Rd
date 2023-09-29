@@ -2,18 +2,26 @@
 % Please edit documentation in R/plotting.R
 \name{save_plot}
 \alias{save_plot}
-\title{Save and Export Plots}
+\title{Save and Export ggplot2 Plots to a Specified Directory}
 \usage{
 save_plot(dir, plot)
 }
 \arguments{
-\item{dir}{a file directory to save the plot}
+\item{dir}{Character; The name of the subdirectory under 'programs' where the plot will be saved.}
 
-\item{plot}{the name of the plot}
+\item{plot}{ggplot; The ggplot2 plot object that you want to save.}
 }
 \value{
-a file
+Saves the plot as a PNG file and returns the full path where the file is saved.
 }
 \description{
-Save and Export Plots
+This function saves a ggplot2 plot as a PNG file in a specified directory.
+The plot will be saved under the 'programs/\if{html}{\out{<dir>}}/output/' folder with the provided plot name.
+}
+\examples{
+\dontrun{
+  # Assume 'some_plot' is a ggplot2 plot object
+  saved_path <- save_plot(dir = "exampleDir", plot = some_plot)
+  print(saved_path)
+}
 }

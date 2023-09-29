@@ -2,27 +2,31 @@
 % Please edit documentation in R/tools.R
 \name{set_time_frame}
 \alias{set_time_frame}
-\title{Filter Data Frame by start and end date}
+\title{Filter Data Frame by a Date Range}
 \usage{
 set_time_frame(dat, col, start, end)
 }
 \arguments{
-\item{dat}{a dataframe}
+\item{dat}{Dataframe; The data frame you wish to filter.}
 
-\item{col}{a column in the dataframe}
+\item{col}{Character; The column name containing date information to filter by.}
 
-\item{start}{the date you want to start the time frame}
+\item{start}{Date; The start date for the date range in 'YYYY-MM-DD' format.}
 
-\item{end}{the date you want to end the time frame}
+\item{end}{Date; The end date for the date range in 'YYYY-MM-DD' format.Date; The end date for the date range in 'YYYY-MM-DD' format.Date; The end date for the date range in 'YYYY-MM-DD' format.}
 }
 \value{
-the dataframe filtered by the time range
+A data frame containing rows that meet the date range criteria.A data frame containing rows that meet the date range criteria.
 }
 \description{
-Filter Data Frame by start and end date
+This function filters a data frame based on a specific date range within a specified column.
+The function utilizes \code{dplyr} to filter rows where the date in the specified column falls
+between the start and end dates, exclusive.
 }
 \examples{
-trainee_progress <- fetch_redash(388)
-result <- set_time_frame(dat = trainee_progress, col = "training", start = "2021-01-01", end = "2021-12-31")
-head(result)
+\dontrun{
+  trainee_progress <- fetch_redash(388)
+  result <- set_time_frame(dat = trainee_progress, col = "training", start = "2021-01-01", end = "2021-12-31")
+  head(result)
+}
 }

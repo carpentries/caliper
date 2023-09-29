@@ -2,16 +2,34 @@
 % Please edit documentation in R/instructor_training.R
 \name{summarise_data_by_tz}
 \alias{summarise_data_by_tz}
-\title{Summarise Trainer Availability Data by Timezone Group}
+\title{Summarize Trainer Availability by Timezone Group and Quarter}
 \usage{
 summarise_data_by_tz(dat)
 }
 \arguments{
-\item{dat}{data frame}
+\item{dat}{Dataframe; Contains original trainer data including availability and timezones.
+Must have columns that can be mapped to 'availability' and 'timezones' by the
+map_availability() and map_timezones() functions, respectively.}
 }
 \value{
-a data frame
+Dataframe; A new data frame containing the number of trainers in each timezone group,
+broken down by availability status, and grouped by year and quarter.
 }
 \description{
-Summarise Trainer Availability Data by Timezone Group
+This function takes a data frame with trainer availability and timezone information,
+applies mapping and summarization operations, and returns a new data frame.
+The summarized data is grouped by year, quarter, timezone group, and availability status.
+Note that the year and quarter are currently hard-coded as "2034" and "1", respectively.
+}
+\examples{
+\dontrun{
+  # Assuming 'trainer_data' is a data frame with availability and timezone info
+  summarized_data <- summarise_data_by_tz(trainer_data)
+  print(summarized_data)
+}
+
+}
+\seealso{
+\code{\link{map_availability}}, \code{\link{map_timezones}}
+for how availability and timezones are mapped.
 }
