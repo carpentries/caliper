@@ -2,16 +2,28 @@
 % Please edit documentation in R/instructor_training.R
 \name{map_timezones}
 \alias{map_timezones}
-\title{Map Timezones}
+\title{Simplify and Group Timezone Information}
 \usage{
 map_timezones(df)
 }
 \arguments{
-\item{df}{a data frame}
+\item{df}{Dataframe; The data frame containing timezone information. Comes from Trainer Quarterly Availability Form.}
 }
 \value{
-data frame with timezones simplified
+Dataframe; The data frame with a renamed 'timezone' column and an additional 'TZgroup'
+column containing simplified timezone labels.
+Throws an error if no matching column or multiple matching columns are found.
 }
 \description{
-Map Timezones
+This function takes a data frame and maps verbose timezone information to
+simplified timezone groups. It identifies the column containing the timezone information
+based on a pattern and renames it to 'timezone'.
+}
+\examples{
+\dontrun{
+  # Assume 'data_with_timezones' is a data frame with an appropriate timezone column
+  grouped_timezones <- map_timezones(data_with_timezones)
+  print(grouped_timezones)
+}
+
 }

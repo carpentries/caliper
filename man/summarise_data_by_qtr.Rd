@@ -2,16 +2,31 @@
 % Please edit documentation in R/instructor_training.R
 \name{summarise_data_by_qtr}
 \alias{summarise_data_by_qtr}
-\title{Summarise Trainer Availability Data by Quarter}
+\title{Summarize Trainer Availability by Quarter}
 \usage{
 summarise_data_by_qtr(dat)
 }
 \arguments{
-\item{dat}{a data frame}
+\item{dat}{Dataframe; The original data frame containing trainer availability data.
+Must contain a column that can be mapped to 'availability' by the map_availability() function.}
 }
 \value{
-a data frame
+Dataframe; A new data frame containing the number of trainers available,
+maybe available, and not available, grouped by year and quarter.
 }
 \description{
-Summarise Trainer Availability Data by Quarter
+This function takes a data frame containing trainer availability data, processes it,
+and returns a summarized version. The summary is grouped by year, quarter, and availability status.
+Currently, the year and quarter are hard-coded as "2034" and "1", respectively.
+}
+\examples{
+\dontrun{
+  # Assuming 'trainer_data' is a data frame containing availability info
+  summarized_data <- summarise_data_by_qtr(trainer_data)
+  print(summarized_data)
+}
+
+}
+\seealso{
+\code{\link{map_availability}} for how availability statuses are mapped.
 }

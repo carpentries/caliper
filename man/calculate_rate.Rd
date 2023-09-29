@@ -2,21 +2,24 @@
 % Please edit documentation in R/tools.R
 \name{calculate_rate}
 \alias{calculate_rate}
-\title{Calculate a rate}
+\title{Calculate the Rate as a Percentage}
 \usage{
 calculate_rate(xsmaller, ylarger)
 }
 \arguments{
-\item{xsmaller}{the smaller number}
+\item{xsmaller}{Numeric; The smaller value you want to compare. Must be non-negative.}
 
-\item{ylarger}{the larger number}
+\item{ylarger}{Numeric; The larger value to which you want to compare \code{xsmaller}. Must be greater than \code{xsmaller}.}
 }
 \value{
-a percentage
+A string representing the rate as a percentage, rounded to two decimal places.
 }
 \description{
-Calculate a rate
+This function takes two numerical values as input, with the smaller number (\code{xsmaller}) and the larger number (\code{ylarger}).
+It returns the rate as a percentage, calculated by the formula: (xsmaller / ylarger) * 100.
 }
 \examples{
-calculate_rate(50, 100)
+calculate_rate(50, 100) # Returns '50\%'
+calculate_rate(30, 120) # Returns '25\%'
+calculate_rate(0, 100)  # Returns '0\%'
 }

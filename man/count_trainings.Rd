@@ -7,11 +7,19 @@
 count_trainings(dat)
 }
 \arguments{
-\item{dat}{a data frame}
+\item{dat}{data.frame
+A data frame containing columns 'personal', 'family', 'active_status', and 'total_trainings'.}
 }
 \value{
-a data frame
+data.frame
+Returns a data frame with columns 'personal', 'family', 'active_status', and 'total_trainings', ordered by 'active_status' and 'total_trainings'.
 }
 \description{
-Number of Trainings Trainers Have Taught
+Calculates the total number of trainings each trainer has taught, grouped by their active status.
+}
+\examples{
+\dontrun{
+  df <- data.frame(personal = c("Alice", "Bob"), family = c("Smith", "Jones"), active_status = c("Active", "Inactive"), total_trainings = c(5, 2))
+  result <- count_trainings(df)
+}
 }

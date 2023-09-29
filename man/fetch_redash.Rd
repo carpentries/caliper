@@ -2,21 +2,27 @@
 % Please edit documentation in R/fetch_data.R
 \name{fetch_redash}
 \alias{fetch_redash}
-\title{Fetch Redash Data}
+\title{Fetch Data from Redash}
 \usage{
 fetch_redash(query_id)
 }
 \arguments{
-\item{query_id}{Can be found in redash.}
+\item{query_id}{Numeric or Character; The query ID corresponding to the Redash query. This ID can be found in the Redash UI.Numeric or Character; The query ID corresponding to the Redash query. This ID can be found in the Redash UI.}
 }
 \value{
-the data frame from the redash query supplied
+A data frame containing the results of the specified Redash query.
 }
 \description{
-Fetch Redash Data
+' This function fetches data from a Redash instance using a specific query ID and API key.
+The API key is fetched from an environment variable named \verb{REDASH_QUERY_<query_id>}.
+The data is read into a data frame using \code{utils::read.csv} and returned.
 }
 \examples{
 
-test <- fetch_redash(17)
+\dontrun{
+  # Make sure to set environment variable for API key like so:
+  # Sys.setenv(REDASH_QUERY_17 = "<your_api_key>")
+  test <- fetch_redash(17)
+}
 
 }

@@ -2,18 +2,26 @@
 % Please edit documentation in R/fetch_data.R
 \name{fetch_airtable}
 \alias{fetch_airtable}
-\title{Fetch Airtable Data}
+\title{Fetch Data from Airtable}
 \usage{
 fetch_airtable(id, db_name)
 }
 \arguments{
-\item{id}{the base id. Can be found in Airtable API documentation}
+\item{id}{Character; The base ID corresponding to your Airtable base. This can be found in the Airtable API documentation.}
 
-\item{db_name}{the Database name. Can be found in Airtable API documentation.}
+\item{db_name}{Character; The name of the database (table) within the Airtable base to fetch data from.}
 }
 \value{
-data frame
+A data frame containing all records from the specified Airtable database (table).
 }
 \description{
-Fetch Airtable Data
+Fetches data from an Airtable base into a data frame. This function relies on the \code{airtabler} package.
+You can find the required \code{id} and \code{db_name} parameters in your Airtable API documentation.
+}
+\examples{
+\dontrun{
+  # Make sure to have `airtabler` package installed and set up
+  # Example usage:
+  data_fetched <- fetch_airtable(id = "your_base_id", db_name = "your_db_name")
+}
 }

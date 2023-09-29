@@ -2,21 +2,27 @@
 % Please edit documentation in R/instructor_training.R
 \name{extract_year_quarter}
 \alias{extract_year_quarter}
-\title{Extract Quarter and Year from Filename}
+\title{Extract Quarter and Year Information from Data Frame Name}
 \usage{
 extract_year_quarter(filename)
 }
 \arguments{
-\item{filename}{a file name}
+\item{filename}{Dataframe; The data frame whose name you want to analyze.}
 }
 \value{
-a list of two values, the quarter and the year
+List; A list containing two elements: 'quarter' and 'year', both as character strings.
+The function will throw an error if the name does not match the expected format.
 }
 \description{
-Extract Quarter and Year from Filename
+This function extracts the quarter and year information from a given data frame name.
+The name is expected to be in the format "Q\link{1-4}_\link{YYYY}" where \link{1-4} is the quarter and \link{YYYY} is the year.
 }
 \examples{
-Q1_2034 <- data.frame()
-result <- extract_year_quarter(Q1_2034)
-print(result)
+\dontrun{
+  # Create a data frame with a name that follows the format
+  Q1_2034 <- data.frame()
+  result <- extract_year_quarter(Q1_2034)
+  print(result) # Should print list(quarter = "Q1", year = "2034")
+}
+
 }

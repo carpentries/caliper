@@ -2,18 +2,28 @@
 % Please edit documentation in R/instructor_training.R
 \name{calculate_checkout_rate}
 \alias{calculate_checkout_rate}
-\title{Calculate checkout rate}
+\title{Calculate Checkout Rate}
 \usage{
 calculate_checkout_rate(trainee_data, days_threshold = 90)
 }
 \arguments{
-\item{trainee_data}{a data frame}
+\item{trainee_data}{data.frame
+A raw data frame containing trainee data. Should have columns \code{training} and \code{instr_badge} as date strings.}
 
-\item{days_threshold}{the number of days you would like to review, default = 90 days}
+\item{days_threshold}{integer
+The time frame for which you would like to calculate the checkout rate, in days. Default is 90 days.}
 }
 \value{
-percentage
+numeric
+Returns the checkout rate as a percentage.
 }
 \description{
-Calculate checkout rate
+This function calculates the checkout rate based on the number of trainees who earned a badge
+within a specified number of days since their training.
+}
+\examples{
+\dontrun{
+  raw_data <- data.frame(...)
+  checkout_rate <- calculate_checkout_rate(raw_data, 90)
+}
 }

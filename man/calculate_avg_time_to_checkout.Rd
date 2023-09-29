@@ -2,22 +2,27 @@
 % Please edit documentation in R/instructor_training.R
 \name{calculate_avg_time_to_checkout}
 \alias{calculate_avg_time_to_checkout}
-\title{Calculate average time to checkout}
+\title{Calculate Average Time to Complete Checkout}
 \usage{
 calculate_avg_time_to_checkout(trainee_progress, days_threshold = 90)
 }
 \arguments{
-\item{trainee_progress}{data frame}
+\item{trainee_progress}{data.frame
+A data frame containing columns for 'instr_badge' and 'training', which represent the checkout completion and training dates, respectively.}
 
-\item{days_threshold}{number of days since training, default = 90}
+\item{days_threshold}{integer
+The minimum number of days since training to include a trainee in the calculation. Default is 90 days.}
 }
 \value{
-average number of days
+numeric
+Returns the average number of days to complete checkout, rounded to two decimal places.
 }
 \description{
-Calculate average time to checkout
+This function computes the average number of days trainees take to complete the checkout process, considering only trainees who have been involved for a specified number of days.
 }
 \examples{
-trainee_progress <- fetch_redash(388)
-(calculate_avg_time_to_checkout(trainee_progress))
+\dontrun{
+  trainee_progress <- fetch_redash(388)
+  avg_time <- calculate_avg_time_to_checkout(trainee_progress)
+}
 }

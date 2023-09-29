@@ -2,18 +2,28 @@
 % Please edit documentation in R/instructor_training.R
 \name{calculate_reengagement_rate}
 \alias{calculate_reengagement_rate}
-\title{Calculate Re-engagement rate}
+\title{Calculate Re-engagement Rate}
 \usage{
 calculate_reengagement_rate(trainee_data, days_threshold = 180)
 }
 \arguments{
-\item{trainee_data}{a data frame}
+\item{trainee_data}{data.frame
+A raw data frame containing trainee data. Should have columns \code{training} and \code{instr_badge} as date strings.}
 
-\item{days_threshold}{the number of days you would like to review, default = 180 days (6 months)}
+\item{days_threshold}{integer
+The time frame for which you would like to calculate the re-engagement rate, in days. Default is 180 days.}
 }
 \value{
-percentage
+numeric
+Returns the re-engagement rate as a percentage.
 }
 \description{
-Calculate Re-engagement rate
+This function calculates the re-engagement rate based on the number of trainees who earned a badge
+within a specified number of days since their training, typically over a longer period such as 6 months.
+}
+\examples{
+\dontrun{
+  raw_data <- data.frame(...)
+  reengagement_rate <- calculate_reengagement_rate(raw_data, 180)
+}
 }

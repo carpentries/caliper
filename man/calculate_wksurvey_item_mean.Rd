@@ -2,25 +2,27 @@
 % Please edit documentation in R/instructor_training.R
 \name{calculate_wksurvey_item_mean}
 \alias{calculate_wksurvey_item_mean}
-\title{Calculate Workshop Survey Item Mean}
+\title{Calculate Mean of Workshop Survey Item Before and After Checkout Changes}
 \usage{
 calculate_wksurvey_item_mean(data, item)
 }
 \arguments{
-\item{data}{data frame}
+\item{data}{data.frame
+A data frame containing the survey responses. Must include a column for 'submitted_at' and the item to be analyzed.}
 
-\item{item}{column name}
+\item{item}{string
+The column name of the survey item for which the mean should be calculated.}
 }
 \value{
-a data frame of the mean before and after for the item
+data.frame
+Returns a data frame with the mean value of the item before and after training re-changes, rounded to two decimal places.
 }
 \description{
-Calculate Workshop Survey Item Mean
+This function calculates the mean value for a specified workshop survey item, segmented by the time before and after training re-changes went live.
 }
 \examples{
- mock_data <- data.frame(submitted_at = as.Date(c("2023-08-15", "2023-08-13")), instructors_clear_answers = c(4, 5))
-result <- calculate_wksurvey_item_mean(mock_data, "instructors_clear_answers")
-print(result)
-
-
+\dontrun{
+  mock_data <- data.frame(submitted_at = as.Date(c("2023-08-15", "2023-08-13")), instructors_clear_answers = c(4, 5))
+  mean_data <- calculate_wksurvey_item_mean(mock_data, "instructors_clear_answers")
+}
 }

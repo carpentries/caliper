@@ -2,22 +2,34 @@
 % Please edit documentation in R/plotting.R
 \name{generate_plot}
 \alias{generate_plot}
-\title{Generate Plots}
+\title{This function generates a bar plot using \code{ggplot2} and a custom Carpentries theme.
+It allows for specifying variables for the x-axis, y-axis, and fill color. The plot is faceted by year and quarter.
+Text labels indicating the y-values are also included above the bars.}
 \usage{
 generate_plot(dat, x, y, fill = NULL)
 }
 \arguments{
-\item{dat}{data frame}
+\item{dat}{Dataframe; The data frame containing the data to be plotted.}
 
-\item{x}{variable on x axis}
+\item{x}{Character; The name of the variable to be plotted on the x-axis.Character; The name of the variable to be plotted on the x-axis.}
 
-\item{y}{variable on y axis}
+\item{y}{Character; The name of the variable to be plotted on the y-axis.}
 
-\item{fill}{variable to be used at fill}
+\item{fill}{Character; Optional. The name of the variable to be used for fill colors.}
 }
 \value{
-plot
+A ggplot object representing the generated plot.
 }
 \description{
-Generate Plots
+This function generates a bar plot using \code{ggplot2} and a custom Carpentries theme.
+It allows for specifying variables for the x-axis, y-axis, and fill color. The plot is faceted by year and quarter.
+Text labels indicating the y-values are also included above the bars.
+}
+\examples{
+\dontrun{
+  # Assume 'data_frame' is a data frame with appropriate columns
+  example_plot <- generate_plot(dat = data_frame, x = "variable_x", y = "variable_y", fill = "variable_fill")
+  print(example_plot)
+}
+
 }
