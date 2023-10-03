@@ -8,7 +8,6 @@ Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Imports: 
   dplyr,
-  googlesheets4,
   stringr, 
   ggplot2,
   airtabler,
