@@ -26,7 +26,9 @@ between the start and end dates, exclusive.
 \examples{
 \dontrun{
   trainee_progress <- fetch_redash(388)
-  result <- set_time_frame(dat = trainee_progress, col = "training", start = "2021-01-01", end = "2021-12-31")
+  result <- set_time_frame(dat = trainee_progress,
+  col = "training", start = "2021-01-01",
+  end = "2021-12-31")
   head(result)
 }
 }
