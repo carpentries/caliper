@@ -36,7 +36,7 @@ map_availability <- function(dat) {
   )
   # The regex pattern matches both spaces and dots
   matching_cols <-
-    grepl("available[\\.\\s]to[\\.\\s]teach",
+    grepl("Are[\\.\\s]you[\\.\\s]available[\\.\\s]to[\\.\\s]teach",
           names(dat),
           ignore.case = TRUE)
 
