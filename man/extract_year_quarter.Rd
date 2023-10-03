@@ -15,7 +15,7 @@ The function will throw an error if the name does not match the expected format.
 }
 \description{
 This function extracts the quarter and year information from a given data frame name.
-The name is expected to be in the format "Q\link{1-4}_\link{YYYY}" where \link{1-4} is the quarter and \link{YYYY} is the year.
+The name is expected to be in the format "Q(1-4)_(YYYY)" where (1-4) is the quarter and (YYYY) is the year.
 }
 \examples{
 \dontrun{

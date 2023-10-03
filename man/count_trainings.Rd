@@ -19,7 +19,9 @@ Calculates the total number of trainings each trainer has taught, grouped by the
 }
 \examples{
 \dontrun{
-  df <- data.frame(personal = c("Alice", "Bob"), family = c("Smith", "Jones"), active_status = c("Active", "Inactive"), total_trainings = c(5, 2))
+  df <- data.frame(personal = c("Alice", "Bob"),
+  family = c("Smith", "Jones"),
+  active_status = c("Active", "Inactive"), total_trainings = c(5, 2))
   result <- count_trainings(df)
 }
 }
