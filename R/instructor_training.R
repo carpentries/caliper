@@ -36,7 +36,7 @@ map_availability <- function(dat) {
   )
   # The regex pattern matches both spaces and dots
   matching_cols <-
-    grepl("available[\\.\\s]to[\\.\\s]teach",
+    grepl("^Are you available to teach",
           names(dat),
           ignore.case = TRUE)
 
@@ -90,7 +90,7 @@ map_timezones <- function(df) {
   # The regex pattern matches both spaces and dots
   matching_cols <-
     grepl(
-      "What[\\.\\s]time[\\.\\s]zone[\\.\\s]are[\\.\\s]you[\\.\\s]located[\\.\\s]in",
+      "^What time zone are you located in",
       names(df),
       ignore.case = TRUE
     )
