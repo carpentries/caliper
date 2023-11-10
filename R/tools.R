@@ -48,3 +48,38 @@ set_time_frame <-  function(dat, col, start, end) {
 
   return(df)
 }
+
+#' Clean Select All Survey Response Data
+#'
+#' @param dat
+#' @param col
+#'
+#' @return
+#' @export
+#'
+#' @examples
+clean_select_all_responses <- function(dat, col) {
+  col_sym <- sym(col)
+  response_table <- data %>%
+    separate_rows(col_sym, sep = ",") %>%
+    mutate(col = str_trim(col)) %>%
+    count(col)
+  return(response_table)
+}
+
+#' Load Libraries
+#'
+#' @param libraries
+#'
+#' @return
+#' @export
+#'
+#' @examples
+load_libraries <- function(libraries) {
+  for (lib in libraries) {
+    if (!require(lib, character.only = TRUE)) {
+      install.packages(lib)
+      library(lib, character.only = TRUE)
+    }
+  }
+}
