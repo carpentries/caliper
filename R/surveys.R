@@ -42,3 +42,43 @@ calculate_nps <- function(dat, col) {
     mutate(Percent = (Number / sum(Number)))
 
 }
+
+#' Gather Questions into One Table to Graph Together
+#'
+#' @param dat
+#' @param questions
+#' @param levels
+#' @param labels
+#'
+#' @return
+#' @export
+#'
+#' @examples
+gather_and_summarise <- function(dat, questions, levels, labels){
+  # Validation Checks
+  if (!is.data.frame(dat)) {
+    stop("Error: 'dat' should be a data frame.")
+  }
+
+  if (!all(questions %in% names(dat))) {
+    stop("Error: Some questions in 'questions' are not column names in 'dat'.")
+  }
+
+  if (length(levels) != length(labels)) {
+    stop("Error: The length of 'levels' and 'labels' must be the same.")
+  }
+
+  # Convert the selected columns into a long format
+  tryCatch({
+    table <- dat %>%
+      select(all_of(questions)) %>%
+      gather(key = "Question", value = "Answer") %>%
+      mutate(Answer = factor(Answer, levels = levels, labels = labels)) %>%
+      group_by(Question, Answer) %>%
+      summarize(Number = n())
+
+    return(table)
+  }, error = function(e) {
+    stop("Error in processing data: ", e$message)
+  })
+}

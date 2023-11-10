@@ -83,3 +83,31 @@ load_libraries <- function(libraries) {
     }
   }
 }
+
+#' Group By and Summarise
+#'
+#' @param dat
+#' @param col
+#' @param convert_to_percent
+#'
+#' @return
+#' @export
+#'
+#' @examples
+group_by_summarise <- function(dat, col, convert_to_percent = FALSE){
+  col_sym <- sym(col) #convert column name to symbol
+  table <- dat %>%
+    group_by(!!col_sym) %>% # unquote the symbol
+    summarise(count = n()) %>%
+    arrange(desc(count))
+
+  # Optionally convert count to percent
+  if (convert_to_percent) {
+    total_count <- sum(table$count)
+    table <- table %>%
+      mutate(percent = count / total_count * 100)
+  }
+
+  return(table)
+
+}
