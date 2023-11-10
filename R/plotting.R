@@ -57,3 +57,56 @@ save_plot <- function(dir, plot) {
   print(path)
   ggsave(path, plot = plot, device = 'png', dpi = 300, width = 4, height = 3)
 }
+
+#' Add Data Labels to Plot
+#'
+#' @param label_type
+#' @param accuracy
+#' @param color
+#' @param vjust
+#' @param fontface
+#'
+#' @return
+#' @export
+#'
+#' @examples
+add_text_geom <- function(label_type = "count", accuracy = 0.1, color = "white", vjust = 1.6, fontface = "bold") {
+  if (label_type == "count") {
+    plot + geom_text(aes(label = count), color = color, vjust = vjust, fontface = fontface)
+  } else if (label_type == "percent") {
+    geom_text(aes(label = scales::label_percent(accuracy = accuracy)(percent)), color = color, vjust = vjust, fontface = fontface)
+  }
+}
+
+#' Format and Text Wrap X Axis Labels
+#'
+#' @param labels
+#' @param wrap_width
+#'
+#' @return
+#' @export
+#'
+#' @examples
+custom_scale_x_discrete <- function(labels, wrap_width = 15) {
+  scale_x_discrete(
+    drop = FALSE,
+    labels = function(x) lapply(
+      strwrap(labels, width = wrap_width, simplify = FALSE),
+      paste,
+      collapse = "\n"
+    )
+  )
+}
+
+#' Add Percent Sign to Data Label
+#'
+#' @param x
+#' @param decimal
+#'
+#' @return
+#' @export
+#'
+#' @examples
+percent_label <- function(x, decimal = 1) {
+  paste0(round(x, decimal), "%")
+}
