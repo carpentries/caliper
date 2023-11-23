@@ -119,7 +119,7 @@ map_timezones <- function(df) {
       stringr::str_detect(timezone, "\\bUTC[-]2[:]?30\\b") ~ "TZ3",
       stringr::str_detect(timezone, "\\bUTC[-]3\\b") ~ "TZ3",
       stringr::str_detect(timezone, "\\bUTC[-]1\\b") ~ "TZ3",
-      stringr::str_detect(timezone, "\\bUTC[ ]?0\\b") ~ "TZ4",
+      stringr::str_detect(timezone, "\\bUTC[)]\\b") ~ "TZ4",
       stringr::str_detect(timezone, "\\bUTC[+]1\\b") ~ "TZ4",
       stringr::str_detect(timezone, "\\bUTC[+]2\\b") ~ "TZ4",
       stringr::str_detect(timezone, "\\bUTC[+]3\\b") ~ "TZ4",
@@ -184,7 +184,7 @@ map_scheduling_group <- function(df) {
       FD_PT = ifelse(
         str_detect(timezone, "UTC[-]10|UTC[-]9|UTC[-]8|UTC[-]7|UTC[-]6"), "FD_PT", NA), # PST +/- 2
       FD_CET = ifelse(
-        str_detect(timezone, "UTC[-]1|UTC[ ]?0|UTC[+]1|UTC[+]2"), "FD_CET", NA), # CEST +/- 2
+        str_detect(timezone, "UTC[-]1|UTC[)]|UTC[+]1|UTC[+]2"), "FD_CET", NA), # CEST +/- 2
       FD_AET = ifelse(
         str_detect(timezone, "UTC[+]12|UTC[+]11|UTC[+]10|UTC[+]9|UTC[+]8"), "FD_AET", NA), # AEST +/- 2
       HD_PM_PT = ifelse(
@@ -204,7 +204,7 @@ map_scheduling_group <- function(df) {
 #' Extract Quarter and Year Information from Data Frame Name
 #'
 #' This function extracts the quarter and year information from a given data frame name.
-#' The name is expected to be in the format "Q[1-4]_[YYYY]" where [1-4] is the quarter and [YYYY] is the year.
+#' The name is expected to be in the format "Q(1-4)_(YYYY)" where (1-4) is the quarter and (YYYY) is the year.
 #'
 #' @param filename Dataframe; The data frame whose name you want to analyze.
 #'

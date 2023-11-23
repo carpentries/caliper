@@ -7,8 +7,21 @@
 percent_label(x, decimal = 1)
 }
 \arguments{
-\item{decimal}{}
+\item{x}{Numeric vector; the values to be formatted as percentages.}
+
+\item{decimal}{Integer; the number of decimal places to round the numeric values.
+Defaults to 1, indicating one decimal place.}
+}
+\value{
+A character vector with the numeric values formatted as percentages.
 }
 \description{
-Add Percent Sign to Data Label
+This function formats numeric values as percentages. It rounds the numbers to the specified decimal places and appends a percent sign.
+}
+\examples{
+# Example usage of percent_label
+numeric_values <- c(0.123, 0.456, 0.789)
+percent_labels <- percent_label(numeric_values)
+print(percent_labels)
+# Output: "12.3\%", "45.6\%", "78.9\%"
 }

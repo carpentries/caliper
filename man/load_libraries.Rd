@@ -2,13 +2,21 @@
 % Please edit documentation in R/tools.R
 \name{load_libraries}
 \alias{load_libraries}
-\title{Load Libraries}
+\title{Load a List of R Libraries, Installing if Necessary}
 \usage{
 load_libraries(libraries)
 }
 \arguments{
-\item{libraries}{}
+\item{libraries}{A character vector of R package names to be loaded.}
+}
+\value{
+None; the function is called for its side effects (loading libraries).
 }
 \description{
-Load Libraries
+This function iterates through a list of R package names, checks if they are installed,
+and loads them into the R session. It installs any package that is not already installed.
+}
+\examples{
+# Example usage to load dplyr and ggplot2
+load_libraries(c("dplyr", "ggplot2"))
 }

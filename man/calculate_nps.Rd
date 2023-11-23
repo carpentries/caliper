@@ -2,13 +2,28 @@
 % Please edit documentation in R/surveys.R
 \name{calculate_nps}
 \alias{calculate_nps}
-\title{Calculate Net Promoter Score}
+\title{Calculate Net Promoter Score (NPS)}
 \usage{
 calculate_nps(dat, col)
 }
 \arguments{
-\item{col}{}
+\item{dat}{A data frame containing survey data.}
+
+\item{col}{A character string specifying the name of the column containing NPS ratings (expected to be numeric).}
+}
+\value{
+A data frame summarizing the number and percentage of respondents in each category:
+Promoters, Passives, and Detractors.
 }
 \description{
-#'How to calculate net promoter score: https://monkeylear.com/blog/nps-analysis/
+This function calculates the Net Promoter Score from survey data based on respondents' ratings.
+NPS is a measure of customer loyalty and is calculated using the formula:
+Percentage of Promoters - Percentage of Detractors.
+For more information on NPS, visit: https://monkeylearn.com/blog/nps-analysis/
+}
+\examples{
+# Example usage with a sample data frame
+sample_data <- data.frame(rating = sample(0:10, 100, replace = TRUE))
+nps_result <- calculate_nps(sample_data, "rating")
+print(nps_result)
 }

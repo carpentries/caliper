@@ -2,13 +2,36 @@
 % Please edit documentation in R/plotting.R
 \name{custom_scale_x_discrete}
 \alias{custom_scale_x_discrete}
-\title{Format and Text Wrap X Axis Labels}
+\title{Format and Text Wrap X Axis Labels in ggplot2}
 \usage{
 custom_scale_x_discrete(labels, wrap_width = 15)
 }
 \arguments{
-\item{wrap_width}{}
+\item{labels}{A vector of labels to be used for the x-axis.
+These labels should correspond to the categories or values present on the x-axis.}
+
+\item{wrap_width}{An integer specifying the maximum width (in characters) before wrapping a label onto the next line.
+The default value is 15.}
+}
+\value{
+A ggplot2 scale layer, specifically a modified \code{scale_x_discrete},
+with the labels formatted to wrap text based on the specified \code{wrap_width}.
 }
 \description{
-Format and Text Wrap X Axis Labels
+This function applies text wrapping to x-axis labels in a ggplot2 plot.
+It allows for customizing the width of the wrap, making long labels more readable by breaking them into multiple lines.
+}
+\examples{
+# Example using the diamonds dataset from ggplot2
+library(ggplot2)
+data(diamonds)
+
+# Create artificial long labels for illustration
+long_labels <- c("Fair Quality Cut", "Good Quality Cut", "Very Good Quality Cut",
+                 "Premium Quality Cut", "Ideal Quality Cut")
+names(long_labels) <- levels(diamonds$cut)
+
+basic_plot <- ggplot(diamonds, aes(x = cut, y = price)) + geom_bar(stat = "identity")
+# Apply custom scale with wrapped labels
+basic_plot + custom_scale_x_discrete(labels = long_labels, wrap_width = 10)
 }

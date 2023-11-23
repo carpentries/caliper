@@ -3,7 +3,8 @@ test_that("map_availability works with expected input and renames the column", {
   df <- data.frame(
     "Are you available to teach" = c("Yes, I am available to teach online Instructor Training",
                                      "No, I can NOT teach online events next quarter.",
-                                     "Maybe, but I am not able to schedule firmly at this time.")
+                                     "Maybe, but I am not able to schedule firmly at this time."),
+    check.names = FALSE
   )
   result <- map_availability(df)
   expect_equal(result$availability, c("yes", "no", "maybe"))
@@ -19,15 +20,15 @@ test_that("map_availability throws error if no matching column exists", {
 # Test if map_availability fails if multiple matching columns
 test_that("map_availability fails if multiple matching columns", {
   df <- data.frame(
-    "Are.you.available.to.teach" = c("Yes", "No"),
-    "Are.you.available.to.teach.online" = c("Yes", "No")
+    "Are you available to teach" = c("Yes", "No"),
+    "Are you available to teach.online" = c("Yes", "No"), check.names = FALSE
   )
   expect_error(map_availability(df), "Error: Multiple matching columns found.")
 })
 
 # Test if map_availability leaves other columns unchanged
 test_that("map_availability leaves other columns unchanged", {
-  df <- data.frame("Name" = c("Alice", "Bob"), "Are you available to teach" = c("Yes", "No"))
+  df <- data.frame("Name" = c("Alice", "Bob"), "Are you available to teach" = c("Yes", "No"), check.names = FALSE)
   df_out <- map_availability(df)
   expect_true("Name" %in% names(df_out))
 })
@@ -35,7 +36,7 @@ test_that("map_availability leaves other columns unchanged", {
 # Test if map_availability maps unknown values unchanged
 test_that("map_availability maps unknown values unchanged", {
   df <- data.frame(
-    "Are you available to teach" = c("Unknown value")
+    "Are you available to teach" = c("Unknown value"), check.names = FALSE
   )
   result <- map_availability(df)
   expect_equal(result$availability, "Unknown value")
@@ -44,7 +45,7 @@ test_that("map_availability maps unknown values unchanged", {
 
 test_that("map_timezones works with expected input", {
   df <- data.frame(
-    "What time zone are you located in?" = c("UTC+1", "UTC-5", "UTC+10")
+    "What time zone are you located in?" = c("UTC+1", "UTC-5", "UTC+10"), check.names = FALSE
   )
   result <- map_timezones(df)
   expect_equal(result$TZgroup, c("TZ4", "TZ2", "TZ6"))
@@ -52,7 +53,8 @@ test_that("map_timezones works with expected input", {
 
 test_that("map_timezones renames the timezone column", {
   df <- data.frame(
-    "What time zone are you located in?" = c("UTC+1")
+    "What time zone are you located in?" = c("UTC+1"),
+    check.names = FALSE
   )
   result <- map_timezones(df)
   expect_true("timezone" %in% names(result))
@@ -60,7 +62,7 @@ test_that("map_timezones renames the timezone column", {
 
 test_that("map_timezones handles unknown timezones", {
   df <- data.frame(
-    "What time zone are you located in?" = c("Mars Standard Time")
+    "What time zone are you located in?" = c("Mars Standard Time"), check.names = FALSE
   )
   result <- map_timezones(df)
   expect_equal(result$TZgroup, "TZother")
@@ -101,7 +103,7 @@ test_that("summarise_data_by_qtr works as expected", {
   # Step 1: Mock data frame
   mock_data <- data.frame(
     "What time zone are you located in?" = c("UTC+1", "UTC-5", "UTC+10"),
-    "Are you available to teach" = c("yes", "no", "maybe")
+    "Are you available to teach" = c("yes", "no", "maybe"), check.names = FALSE
   )
 
   # Step 2: Expected result
@@ -129,7 +131,7 @@ test_that("summarise_data_by_tz works as expected", {
   # Mock data frame
   mock_data <- data.frame(
     "What time zone are you located in?" = c("UTC+1", "UTC-5", "UTC+10"),
-    "Are you available to teach" = c("yes", "no", "maybe")
+    "Are you available to teach" = c("yes", "no", "maybe"), check.names = FALSE
   )
 
   # Expected result

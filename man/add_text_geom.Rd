@@ -2,19 +2,39 @@
 % Please edit documentation in R/plotting.R
 \name{add_text_geom}
 \alias{add_text_geom}
-\title{Add Data Labels to Plot}
+\title{Add Data Labels to a ggplot2 Plot}
 \usage{
 add_text_geom(
   label_type = "count",
   accuracy = 0.1,
   color = "white",
   vjust = 1.6,
-  fontface = "bold"
+  fontface = "bold",
+  nudge_x = 0
 )
 }
 \arguments{
-\item{fontface}{}
+\item{label_type}{A character string specifying the type of label to add.
+Acceptable values are "count" for count labels and "percent" for percentage labels.}
+
+\item{accuracy}{An optional numeric value specifying the number of decimal places for percentage labels.
+Only applicable if \code{label_type} is "percent". Default is 0.1.}
+
+\item{color}{A character string specifying the color of the text labels. Default is "white".}
+
+\item{vjust}{A numeric value for vertical adjustment of the text labels.
+Positive values move text up, and negative values move it down. Default is 1.6.}
+
+\item{fontface}{A character string specifying the font face for text labels.
+Common values are "plain", "bold", "italic", "bold.italic". Default is "bold".}
+
+\item{nudge_x}{A numeric value specifying horizontal adjustment of the text labels.
+Positive values move text to the right, and negative values move it to the left. Default is 0.}
+}
+\value{
+A ggplot2 layer with the specified text labels added.
 }
 \description{
-Add Data Labels to Plot
+This function adds text labels to a ggplot2 plot. It supports two types of labels: counts and percentages.
+The labels can be customized in terms of their accuracy, color, vertical adjustment, and font face.
 }
