@@ -16,6 +16,9 @@
     <loc>https://klbarnes20.github.io/caliper/index.html</loc>
   </url>
   <url>
+    <loc>https://klbarnes20.github.io/caliper/reference/add_text_geom.html</loc>
+  </url>
+  <url>
     <loc>https://klbarnes20.github.io/caliper/reference/badged_n_days.html</loc>
   </url>
   <url>
@@ -34,6 +37,9 @@
     <loc>https://klbarnes20.github.io/caliper/reference/calculate_dropout_rate.html</loc>
   </url>
   <url>
+    <loc>https://klbarnes20.github.io/caliper/reference/calculate_nps.html</loc>
+  </url>
+  <url>
     <loc>https://klbarnes20.github.io/caliper/reference/calculate_rate.html</loc>
   </url>
   <url>
@@ -41,6 +47,9 @@
   </url>
   <url>
     <loc>https://klbarnes20.github.io/caliper/reference/calculate_wksurvey_item_mean.html</loc>
+  </url>
+  <url>
+    <loc>https://klbarnes20.github.io/caliper/reference/clean_select_all_responses.html</loc>
   </url>
   <url>
     <loc>https://klbarnes20.github.io/caliper/reference/count_trainings.html</loc>
@@ -52,6 +61,9 @@
     <loc>https://klbarnes20.github.io/caliper/reference/count_trainings_yr.html</loc>
   </url>
   <url>
+    <loc>https://klbarnes20.github.io/caliper/reference/custom_scale_x_discrete.html</loc>
+  </url>
+  <url>
     <loc>https://klbarnes20.github.io/caliper/reference/extract_year_quarter.html</loc>
   </url>
   <url>
@@ -61,19 +73,34 @@
     <loc>https://klbarnes20.github.io/caliper/reference/fetch_redash.html</loc>
   </url>
   <url>
+    <loc>https://klbarnes20.github.io/caliper/reference/gather_and_summarise.html</loc>
+  </url>
+  <url>
     <loc>https://klbarnes20.github.io/caliper/reference/generate_plot.html</loc>
   </url>
   <url>
     <loc>https://klbarnes20.github.io/caliper/reference/get_env_var.html</loc>
   </url>
   <url>
+    <loc>https://klbarnes20.github.io/caliper/reference/group_by_summarise.html</loc>
+  </url>
+  <url>
     <loc>https://klbarnes20.github.io/caliper/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://klbarnes20.github.io/caliper/reference/load_libraries.html</loc>
   </url>
   <url>
     <loc>https://klbarnes20.github.io/caliper/reference/map_availability.html</loc>
   </url>
   <url>
+    <loc>https://klbarnes20.github.io/caliper/reference/map_scheduling_group.html</loc>
+  </url>
+  <url>
     <loc>https://klbarnes20.github.io/caliper/reference/map_timezones.html</loc>
+  </url>
+  <url>
+    <loc>https://klbarnes20.github.io/caliper/reference/percent_label.html</loc>
   </url>
   <url>
     <loc>https://klbarnes20.github.io/caliper/reference/preprocess_trainee_data.html</loc>
