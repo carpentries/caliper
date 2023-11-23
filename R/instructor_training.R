@@ -119,7 +119,7 @@ map_timezones <- function(df) {
       stringr::str_detect(timezone, "\\bUTC[-]2[:]?30\\b") ~ "TZ3",
       stringr::str_detect(timezone, "\\bUTC[-]3\\b") ~ "TZ3",
       stringr::str_detect(timezone, "\\bUTC[-]1\\b") ~ "TZ3",
-      stringr::str_detect(timezone, "\\bUTC[ ]?0\\b") ~ "TZ4",
+      stringr::str_detect(timezone, "\\bUTC[)]\\b") ~ "TZ4",
       stringr::str_detect(timezone, "\\bUTC[+]1\\b") ~ "TZ4",
       stringr::str_detect(timezone, "\\bUTC[+]2\\b") ~ "TZ4",
       stringr::str_detect(timezone, "\\bUTC[+]3\\b") ~ "TZ4",
@@ -135,6 +135,68 @@ map_timezones <- function(df) {
       TRUE ~ "TZother"
     )
   )
+
+  return(df)
+}
+
+#' Create Scheduling Groups
+#'
+#'
+#' @param df Dataframe; The data frame containing timezone information. Comes from Trainer Quarterly Availability Form.
+#'
+#' @return Dataframe; The data frame with an additional 'sched_group'
+#' column.
+#' Throws an error if no matching column or multiple matching columns are found.
+#'
+#' @importFrom stringr str_detect
+#' @importFrom dplyr rename mutate
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'   # Assume 'data_with_timezones' is a data frame with an appropriate timezone column
+#'   grouped_timezones <- map_timezones(data_with_timezones)
+#'   print(grouped_timezones)
+#' }
+#'
+map_scheduling_group <- function(df) {
+  # The regex pattern matches both spaces and dots
+  matching_cols <-
+    grepl(
+      "^What time zone are you located in",
+      names(df),
+      ignore.case = TRUE
+    )
+  if (sum(matching_cols) > 1) {
+    stop("Error: Multiple matching columns found.")
+  }
+  if (sum(matching_cols) == 0) {
+    stop("No matching column name found.")
+  }
+  col_index <- which(matching_cols)
+  df <- df %>%
+    rename(timezone = names(df)[col_index])
+
+  df <- df %>%
+    mutate(
+      FD_ET = ifelse(
+        str_detect(timezone, "UTC[-]7|UTC[-]6|UTC[-]5|UTC[-]4|UTC[-]3|UTC[-]2[:]?30"), "FD_ET", NA), #EST +/- 2, also includes Newfoundland timezone
+      FD_PT = ifelse(
+        str_detect(timezone, "UTC[-]10|UTC[-]9|UTC[-]8|UTC[-]7|UTC[-]6"), "FD_PT", NA), # PST +/- 2
+      FD_CET = ifelse(
+        str_detect(timezone, "UTC[-]1|UTC[)]|UTC[+]1|UTC[+]2"), "FD_CET", NA), # CEST +/- 2
+      FD_AET = ifelse(
+        str_detect(timezone, "UTC[+]12|UTC[+]11|UTC[+]10|UTC[+]9|UTC[+]8"), "FD_AET", NA), # AEST +/- 2
+      HD_PM_PT = ifelse(
+        str_detect(timezone, "UTC[+]10|UTC[+]11|UTC[+]12|UTC[-]12|UTC[-]11|UTC[-]10|UTC[-]9|UTC[-]8|UTC[-]7|UTC[-]6"), "HD_PM_PT", NA), # PST + 6 hours before and 2 hours after
+      HD_PM_ET = ifelse(
+        str_detect(timezone, "UTC[-]11|UTC[-]10|UTC[-]9|UTC[-]8|UTC[-]7|UTC[-]6|UTC[-]5|UTC[-]4|UTC[-]3"), "HD_PM_ET", NA),
+      HD_PM_CET = ifelse(
+        str_detect(timezone, "UTC[-]5|UTC[-]4|UTC[-]3|UTC[-]2[:]?30|UTC[-]2|UTC[-]1|UTC[ ]?0|UTC[+]1|UTC[+]2|UTC[+]3"), "HD_PM_CET", NA),
+      HD_PM_AET = ifelse(
+        str_detect(timezone, "UTC[+]4|UTC[+]5|UTC[+]6|UTC[+]7|UTC[+]8|UTC[+]9|UTC[+]10|UTC[+]11|UTC[+]12"), "HD_PM_AET", NA)
+    )
+
 
   return(df)
 }
