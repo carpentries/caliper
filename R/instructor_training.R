@@ -658,8 +658,10 @@ calculate_avg_time_to_checkout <-
 #'
 #' @examples
 #' \dontrun{
-#'   mock_data <- data.frame(submitted_at = as.Date(c("2023-08-15", "2023-08-13")), instructors_clear_answers = c(4, 5))
-#'   mean_data <- calculate_wksurvey_item_mean(mock_data, "instructors_clear_answers")
+#'   mock_data <- data.frame(submitted_at =
+#'   as.Date(c("2023-08-15", "2023-08-13")), instructors_clear_answers = c(4, 5))
+#'   mean_data <-
+#'   calculate_wksurvey_item_mean(mock_data, "instructors_clear_answers")
 #' }
 calculate_wksurvey_item_mean <- function(data, item) {
   existing_cols <- intersect(
@@ -699,7 +701,9 @@ calculate_wksurvey_item_mean <- function(data, item) {
 #'
 #' @examples
 #' \dontrun{
-#'   df <- data.frame(personal = c("Alice", "Bob"), family = c("Smith", "Jones"), active_status = c("Active", "Inactive"), total_trainings = c(5, 2))
+#'   df <- data.frame(personal = c("Alice", "Bob"),
+#'   family = c("Smith", "Jones"),
+#'   active_status = c("Active", "Inactive"), total_trainings = c(5, 2))
 #'   result <- count_trainings(df)
 #' }
 
@@ -726,7 +730,9 @@ count_trainings <- function(dat) {
 #'
 #' @examples
 #' \dontrun{
-#'   df <- data.frame(family = c("Smith", "Jones"), personal = c("Alice", "Bob"), start = c("2021-05-01", "2022-04-01"))
+#'   df <- data.frame(family = c("Smith", "Jones"),
+#'    personal = c("Alice", "Bob"),
+#'    start = c("2021-05-01", "2022-04-01"))
 #'   result <- count_trainings_yr(df)
 #' }
 count_trainings_yr <- function(dat) {
@@ -752,7 +758,9 @@ count_trainings_yr <- function(dat) {
 #'
 #' @examples
 #' \dontrun{
-#'   df <- data.frame(family = c("Smith", "Jones"), personal = c("Alice", "Bob"), start = c("2021-05-01", "2022-04-01"))
+#'   df <- data.frame(family = c("Smith", "Jones"),
+#'   personal = c("Alice", "Bob"),
+#'   start = c("2021-05-01", "2022-04-01"))
 #'   result <- count_trainings_rel_yr(df)
 #' }
 count_trainings_rel_yr <- function(dat) {

@@ -18,7 +18,9 @@
 #' @examples
 #' \dontrun{
 #'   # Assume 'data_frame' is a data frame with appropriate columns
-#'   example_plot <- generate_plot(dat = data_frame, x = "variable_x", y = "variable_y", fill = "variable_fill")
+#'   example_plot <-
+#'   generate_plot(dat = data_frame, x = "variable_x",
+#'   y = "variable_y", fill = "variable_fill")
 #'   print(example_plot)
 #' }
 #'

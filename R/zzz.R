@@ -1,0 +1,1 @@
+utils::globalVariables(c("days_to_badge", "days_from_training", "instr_badge", "training", "get_involved", "teaching_demo", "welcome", "submitted_at", "train_re_changes", "personal", "family", "active_status", "total_trainings", "start", "count_trainings_rel_yr", "start_year", "relative_year", "position_dodge", "aes", "after_stat", "quarter", "availability", "TZgroup", ""))

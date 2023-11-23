@@ -19,7 +19,9 @@ Calculates the number of trainings conducted by each trainer, grouped by their c
 }
 \examples{
 \dontrun{
-  df <- data.frame(family = c("Smith", "Jones"), personal = c("Alice", "Bob"), start = c("2021-05-01", "2022-04-01"))
+  df <- data.frame(family = c("Smith", "Jones"),
+  personal = c("Alice", "Bob"),
+  start = c("2021-05-01", "2022-04-01"))
   result <- count_trainings_rel_yr(df)
 }
 }
